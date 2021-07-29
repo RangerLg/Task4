@@ -11,20 +11,16 @@
             Users
         </button>
     </form>
-    <form method="post" asp-controller="Account" asp-action="Logout">
+    @*<form method="post" asp-controller="Account" asp-action="Logout">
         <input type="submit" value="Выход" />
-    </form>
+    </form>*@
     @*<li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
         </li>*@
 
 
 }
-else
-{
-    <a asp-controller="Account" asp-action="Login">Вход</a>
-    <a asp-controller="Account" asp-action="Register">Регистрация</a>
-}
+
 
 @*<div class="text-center">
         <h1 class="display-4">Welcome</h1>

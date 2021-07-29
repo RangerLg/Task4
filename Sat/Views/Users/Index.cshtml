@@ -2,7 +2,7 @@
 @{ ViewBag.Title = "Список пользователей"; }
 @if (User.Identity.IsAuthenticated)
 {
-    <a asp-action="Create">Добавить пользователя</a>
+    
 @using (Html.BeginForm("BlockorDelete", "Users", FormMethod.Post))
 {
     <table class="table">

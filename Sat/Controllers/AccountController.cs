@@ -80,7 +80,7 @@ namespace Sat.Controllers
                         var res = await _userManager.FindByEmailAsync(model.Email);
                         res.DataLog = DateTime.Today;
                         await _userManager.UpdateAsync(res);
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Users");
 
                     }
                 }

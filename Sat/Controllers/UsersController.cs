@@ -17,7 +17,7 @@ namespace CustomIdentityApp.Controllers
         {
             _userManager = userManager;
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
             return View(_userManager.Users.ToList());
