@@ -17,7 +17,6 @@ namespace Sat.Controllers
             
             _userManager = userManager;
             _signInManager = signInManager;
-            _ = Logout();
         }
         [HttpGet]
         public IActionResult Register()
@@ -58,7 +57,7 @@ namespace Sat.Controllers
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
-            _ = Logout();
+            
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
 
@@ -66,6 +65,7 @@ namespace Sat.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
+            
             if (ModelState.IsValid)
             {
                 var result =
@@ -89,7 +89,16 @@ namespace Sat.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                    var res = await _userManager.FindByEmailAsync(model.Email);
+
+                    if (res.LockoutEnabled == true)
+                    {
+                        ModelState.AddModelError("", "You are blocked");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                    }
                 }
             }
             return View(model);
