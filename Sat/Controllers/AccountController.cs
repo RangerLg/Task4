@@ -41,7 +41,7 @@ namespace Sat.Controllers
                     var res = await _userManager.FindByNameAsync(model.Email);
                     await _userManager.SetLockoutEnabledAsync(res, false);
                     _userManager.UpdateAsync(res);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Users");
                 }
                 else
                 {
