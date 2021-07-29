@@ -14,8 +14,10 @@ namespace Sat.Controllers
 
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
+            
             _userManager = userManager;
             _signInManager = signInManager;
+            _ = Logout();
         }
         [HttpGet]
         public IActionResult Register()
@@ -40,7 +42,7 @@ namespace Sat.Controllers
                     await _signInManager.SignInAsync(user, false);
                     var res = await _userManager.FindByNameAsync(model.Email);
                     await _userManager.SetLockoutEnabledAsync(res, false);
-                    _userManager.UpdateAsync(res);
+                    _ = _userManager.UpdateAsync(res);
                     return RedirectToAction("Index", "Users");
                 }
                 else
@@ -56,6 +58,7 @@ namespace Sat.Controllers
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
+            _ = Logout();
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
 

@@ -120,11 +120,16 @@ namespace CustomIdentityApp.Controllers
 
         public async Task<IActionResult> BlockorDelete(IEnumerable<string> employeeIdsToDelete,string ButtonType)
         {
+            bool isUser = false;
             foreach (var id in employeeIdsToDelete)
             {
                 var user = await _userManager.FindByIdAsync(id);
                 if (user != null)
                 {
+                    if(User.Identity.Name == user.UserName)
+                    {
+                        isUser = true;
+                    }
                     if (ButtonType == "Block selected")
                     {
                         await _userManager.SetLockoutEnabledAsync(user, true);
@@ -142,8 +147,16 @@ namespace CustomIdentityApp.Controllers
                     }
                 }
             }
-            var rez = User.Identity.Name;
-            return RedirectToAction("Index");
+            
+            if (!isUser|| ButtonType == "Unblock selected")
+            {
+           
+                return RedirectToAction("Index");
+            }
+            else 
+            {               
+                return RedirectToAction("Login", "Account");
+            }
 
         }
 

@@ -2,57 +2,62 @@
 @{ ViewBag.Title = "Список пользователей"; }
 @if (User.Identity.IsAuthenticated)
 {
-    
-@using (Html.BeginForm("BlockorDelete", "Users", FormMethod.Post))
-{
-    <table class="table">
 
-        <tr>
-            <th>
-                <input type="checkbox" id="checkAll" name="checkAll" class="JchkAll" onclick="Selectall();" />
-            </th>
-            <th>Email</th>
-            <th>ID</th>
-            <th>UserName</th>
-            <th>DataLog</th>
-            <th>DataReg</th>
-            <th>Status</th>
-        </tr>
-        @foreach (var user in Model)
-        {
-    <tr>
+    @using (Html.BeginForm("BlockorDelete", "Users", FormMethod.Post))
+    {
+        <input type="submit" name="ButtonType" value="Block selected" />
+        <input type="submit" name="ButtonType" value="Unblock selected" />
+        <input type="submit" name="ButtonType" value="Delete selected" />
+        <table class="table">
 
-        <td>
-            <input type='checkbox' id="employeeIdsToDelete" name="employeeIdsToDelete" class="JchkGrid" value="@user.Id" />
-        </td>
-        <td>@user.Email</td>
-        <td>@user.Id</td>
-        <td>@user.UserName</td>
-        <td>@user.DataLog.ToShortDateString()</td>
-        <td>@user.DataReg.ToShortDateString()</td>
+            <tr>
+                <th>
+                    <input type="checkbox" id="checkAll" name="checkAll" class="JchkAll" onclick="Selectall();" />
+                </th>
+                <th>Email</th>
+                <th>ID</th>
+                <th>UserName</th>
+                <th>DataLog</th>
+                <th>DataReg</th>
+                <th>Status</th>
+            </tr>
+            @foreach (var user in Model)
+            {
+                <tr>
 
-        @if (user.LockoutEnabled)
-        {
-            <td>
-                Block
-            </td>
+                    <td>
+                        <input type='checkbox' id="employeeIdsToDelete" name="employeeIdsToDelete" class="JchkGrid" value="@user.Id" />
+                    </td>
+                    <td>@user.Email</td>
+                    <td>@user.Id</td>
+                    <td>@user.UserName</td>
+                    <td>@user.DataLog.ToShortDateString()</td>
+                    <td>@user.DataReg.ToShortDateString()</td>
 
-        }
-        else
-        {
-            <td>Activ</td>
-        }
+                    @if (user.LockoutEnabled)
+                    {
+                        <td>
+                            Block
+                        </td>
+
+                    }
+                    else
+                    {
+                        <td>Activ</td>
+                    }
 
 
-    </tr>
-        }
-    </table>
-    <input type="submit" name="ButtonType" value="Block selected" />
-    <input type="submit" name="ButtonType" value="Unblock selected" />
-    <input type="submit" name="ButtonType" value="Delete selected" />
+                </tr>
+            }
+        </table>
+
+    }
 }
-}
-
+<form asp-controller="Account" asp-action="Login" method="post">
+    <button type="submit" class="btn btn-sm btn-danger">
+        LogOut
+    </button>
+</form>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script>
 
