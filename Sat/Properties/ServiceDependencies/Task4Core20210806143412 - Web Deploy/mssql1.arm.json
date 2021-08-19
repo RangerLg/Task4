@@ -4,7 +4,7 @@
   "parameters": {
     "resourceGroupName": {
       "type": "string",
-      "defaultValue": "Sat20210727175143ResourceGroup",
+      "defaultValue": "Task4",
       "metadata": {
         "_parameterType": "resourceGroup",
         "description": "Имя группы ресурсов для ресурса. Рекомендуется поместить ресурсы в одну группу ресурсов для более удобного отслеживания."

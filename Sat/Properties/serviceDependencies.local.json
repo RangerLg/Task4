@@ -2,6 +2,15 @@
   "dependencies": {
     "secrets1": {
       "type": "secrets.user"
+    },
+    "appInsights1": {
+      "type": "appInsights.sdk"
+    },
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/task4coredbserver/databases/Task4Core_db",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:DefaultConnection",
+      "secretStore": "LocalSecretsFile"
     }
   }
 }

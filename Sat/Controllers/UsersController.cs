@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using Sat.ViewModels;
 using System;
 
-namespace CustomIdentityApp.Controllers
+namespace Task4Core.Controllers
 {
     public class UsersController : Controller
     {
-        UserManager<User> _userManager;
+        readonly UserManager<User> _userManager;
 
         public UsersController(UserManager<User> userManager)
         {
@@ -22,6 +22,8 @@ namespace CustomIdentityApp.Controllers
         {
             return View(_userManager.Users.ToList());
         }
+
+
 
         public IActionResult Create() => View();
 

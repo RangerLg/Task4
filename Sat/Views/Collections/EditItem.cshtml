@@ -1,0 +1,120 @@
+﻿@model Task4Core.ViewModels.EditItemViewModel
+
+
+
+<form method="post" asp-controller="Collections" asp-action="EditItem">
+    <div>
+        <input type="hidden" asp-for="Id" />
+    </div>
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="ItemName"></label>
+        <input asp-for="ItemName" />
+        <span asp-validation-for="ItemName"></span>
+    </div>
+    @if (Model.CollectionsId.FirstField != null)
+    {
+        <label>@Model.CollectionsId.FirstFieldName:</label>
+        @switch (@Model.CollectionsId.FirstField)
+        {
+            case "Int":
+                <input asp-for="FirstFiled_Int" />
+                <span asp-validation-for="FirstFiled_Int"></span>
+                break;
+            case "String":
+                <textarea rows="4" cols="40" style="resize:none" asp-for="FirstFiled_String">
+                </textarea>
+                <span asp-validation-for="FirstFiled_String"></span>
+                break;
+            case "Data":
+                <input type="date" asp-for="FirstFiled_Data" />
+                <span asp-validation-for="FirstFiled_Data"></span>
+                break;
+            case "Bool":
+                <input type="checkbox" asp-for="FirstFiled_Bool" />
+                <span asp-validation-for="FirstFiled_Bool"></span>
+                break;
+        }
+    }
+    <br />
+    @if (Model.CollectionsId.SecondFiled != null)
+    {
+        <label>@Model.CollectionsId.SecondFieldName</label>
+
+        @switch (@Model.CollectionsId.SecondFiled)
+        {
+            case "Int":
+
+                <input asp-for="SecondFiled_Int" />
+                <span asp-validation-for="SecondFiled_Int"></span>
+
+                break;
+
+            case "String":
+
+                <textarea rows="4" cols="40" style="resize:none" asp-for="SecondFiled_String">
+                </textarea>
+                <span asp-validation-for="SecondFiled_String"></span>
+
+                break;
+
+            case "Data":
+
+                <input type="date" asp-for="SecondFiled_Data" style="" />
+                <span asp-validation-for="SecondFiled_Data"></span>
+
+                break;
+
+            case "Bool":
+                <input type="checkbox" asp-for="SecondFiled_Bool" style="" />
+                <span asp-validation-for="SecondFiled_Bool"></span>
+                break;
+        }
+    }
+    <br />
+    @if (Model.CollectionsId.ThirdFiled != null)
+    {
+        <label>@Model.CollectionsId.ThirdFieldName</label>
+        @switch (@Model.CollectionsId.ThirdFiled)
+        {
+            case "Int":
+
+                <input asp-for="ThirdFiled_Int" />
+                <span asp-validation-for="ThirdFiled_Int"></span>
+
+                break;
+
+            case "String":
+
+                <textarea rows="4" cols="40" style="resize:none" asp-for="ThirdFiled_String">
+                </textarea>
+                <span asp-validation-for="ThirdFiled_String"></span>
+
+                break;
+
+            case "Data":
+
+                <input type="date" asp-for="ThirdFiled_Data" />
+                <span asp-validation-for="ThirdFiled_Data"></span>
+                break;
+
+            case "Bool":
+                <input type="checkbox" asp-for="ThirdFiled_Bool" />
+                <span asp-validation-for="ThirdFiled_Bool"></span>
+                break;
+        }
+    }
+    <br />
+    <div>
+        <label asp-for="Tags"></label>
+        <input type="text" asp-for="Tags" />
+        <span asp-validation-for="Tags"></span>
+    </div>
+
+    <div>
+        <button type="submit" class="button-css">Edit</button>
+    </div>
+</form>
+
+
+

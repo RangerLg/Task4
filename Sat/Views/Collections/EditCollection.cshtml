@@ -1,0 +1,37 @@
+﻿@model Task4Core.ViewModels.EdditCollectionViewModel
+
+
+<form method="post" asp-controller="Collections" asp-action="EditCollection">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <input type="hidden" asp-for="Id" />
+    </div>
+
+    <div>
+        <label asp-for="CollectionsName"></label>
+        <input asp-for="CollectionsName" />
+        <span asp-validation-for="CollectionsName"></span>
+    </div>
+
+    <div>
+        <label asp-for="CollectionsTopic"></label>
+        <select asp-for="CollectionsTopic">
+            <option value="Books">Books</option>
+            <option value="Alcohol">Alcohol</option>
+            <option value="Cars">Cars</option>
+        </select>
+        <span asp-validation-for="CollectionsTopic"></span>
+    </div>
+
+    <div>
+        <label asp-for="Description"></label>
+        <textarea  rows="4" cols="40" style="resize:block" asp-for="Description" ></textarea>
+        <span asp-validation-for="Description"></span>
+    </div>
+
+   
+
+    <div>
+        <input type="submit" value="Edit" class="button-css" />
+    </div>
+</form>
