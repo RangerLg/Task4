@@ -123,6 +123,9 @@
   <data name="Collection description" xml:space="preserve">
     <value>Collection description</value>
   </data>
+  <data name="CommetsCount" xml:space="preserve">
+    <value>Number of comments</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -135,7 +138,13 @@
   <data name="Item name" xml:space="preserve">
     <value>Item name</value>
   </data>
+  <data name="LikesCount" xml:space="preserve">
+    <value>Number of likes</value>
+  </data>
   <data name="More" xml:space="preserve">
     <value>More</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
   </data>
 </root>

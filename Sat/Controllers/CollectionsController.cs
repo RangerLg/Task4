@@ -11,10 +11,11 @@ using Task4Core.ViewModels;
 using System.Data.Entity;
 using System.Configuration;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace Task4Core.Controllers
 {
-
+    
     public class CollectionsController : Controller
     {
         IConfiguration _configuration;
@@ -75,21 +76,21 @@ namespace Task4Core.Controllers
             else
                 collections = _appDBContext.Collections;
         }
-        
-        public IActionResult AddItem(Item item)
+        public IActionResult AddItem(int CollectionId)
         {
-
-            return View();
+         
+            return View(new AddItemViewModel() {Id=_appDBContext.Collections.Where(s=>s.ID==CollectionId).First() });
         }
         [HttpPost]
         public IActionResult AddItem(AddItemViewModel model,int CollectionId,IEnumerable<string> Tags)
         {
             var CollectionInfo = _appDBContext.Collections.Where(i => i.ID == CollectionId).First();
-            DateTime time1=DateTime.Now, time2=DateTime.Now, time3=DateTime.Now;
-            string tagsString=String.Empty;
+                     
             if (ModelState.IsValid)
             {
-                foreach(var s in Tags)
+                string tagsString = String.Empty;
+                DateTime time1 = DateTime.Now, time2 = DateTime.Now, time3 = DateTime.Now;
+                foreach (var s in Tags)
                 {
                     tagsString += '#'+s;
                 }
@@ -119,18 +120,30 @@ namespace Task4Core.Controllers
                     ThirdField_Data = time3,
                     Tags = tagsString
                 }) ;
+                AddTags(Tags);
                 CollectionInfo.ItemCount++;
                 _appDBContext.Collections.Update(CollectionInfo);
                 _appDBContext.SaveChanges();
                 return RedirectToAction("MyColl",new { Username=CollectionInfo.UserName});
             }
-            
-            return View(new AddItemViewModel() {Id= CollectionInfo,FirstFiled_Data=DateTime.Now,SecondFiled_Data=DateTime.Now,ThirdFiled_Data=DateTime.Now});
+            model.Id = CollectionInfo;
+            return View(model);
         }
-
-        public IActionResult AddCollection()
+        private void AddTags(IEnumerable<string> Tags)
         {
-            return View();
+            foreach(var tag in Tags)
+            {
+                if (_appDBContext.Tags.Where(s => s.Tag == tag).Count() == 0)
+                {
+                    _appDBContext.Tags.Add(new Tags() { Tag=tag});
+                    _appDBContext.SaveChanges();
+                }
+            }
+        }
+        public IActionResult AddCollection(string Username)
+        {
+            var UserName = Username ?? User.Identity.Name;
+            return View(new AddCollectionsViewModel() {UserName= UserName });
         }
         [HttpPost]
         public IActionResult AddCollection(AddCollectionsViewModel model,IEnumerable<string> list,IEnumerable<string> FieldName,string Username)
@@ -196,12 +209,13 @@ namespace Task4Core.Controllers
         }
         public IActionResult CollectionPage(int CollectionId, string sortOrder, string searchString)
         {
-            var Items = _appDBContext.Items.Where(i => i.IdCollection == CollectionId);
+            var Items = _appDBContext.Items.Where(i => i.IdCollection == CollectionId);           
             var collection = _appDBContext.Collections.Where(I => I.ID == CollectionId).ToList().First();
             var markdown = new MarkdownSharp.Markdown();
             collection.Description = markdown.Transform(collection.Description);
             ViewBag.NameSortParm = sortOrder == "Name" ? "name_desc" : "Name";
-            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.DateSortParm = sortOrder == "Like" ? "like_sedc" : "Like";
+            ViewBag.CommentsSortParm = sortOrder == "Comments" ? "comments_desc" : "Comments";
             if (!String.IsNullOrEmpty(searchString))
             {
                 Items = Items.Where(s => s.NameItem.Contains(searchString));
@@ -211,21 +225,27 @@ namespace Task4Core.Controllers
                 case "name_desc":
                     Items = Items.OrderByDescending(s => s.NameItem);
                     break;
-                case "Date":
-                    Items = Items.OrderBy(s => s.IDItem);
+                case "Like":
+                    Items = Items.OrderBy(s => s.LikesCount);
                     break;
                 case "Name":
                     Items = Items.OrderBy(s => s.NameItem);
                     break;
-                case "date_desc":
-                    Items = Items.OrderByDescending(s => s.IDItem);
+                case "like_sedc":
+                    Items = Items.OrderByDescending(s => s.LikesCount);
+                    break;
+                case "Comments":
+                    Items = Items.OrderBy(s => s.CommentsCount);
+                    break;
+                case "comments_desc":
+                    Items = Items.OrderByDescending(s => s.CommentsCount);
                     break;
                 default:
                     Items = Items.OrderBy(s => s.IDItem);
                     break;
             }
             
-            return View(new CollectionsItems() { collections = collection, items = Items });
+            return View(new CollectionsItems() { collections = collection, items = Items.ToList() });
         }
 
         public IActionResult Items(string searchString)
@@ -233,10 +253,35 @@ namespace Task4Core.Controllers
            
             if (!String.IsNullOrEmpty(searchString))
             {
-                var items = _appDBContext.Items.Where(s => s.NameItem.Contains(searchString)||
-                                                        s.Tags.Contains(searchString));
-                return View(items.ToList());
-            }
+                var comments = from p in _appDBContext.Comments
+                           where EF.Functions.Contains(p.Comment, searchString)
+                           select p.ItemId;
+                var coll = from p in _appDBContext.Collections
+                                  where EF.Functions.Contains(p.Description, searchString) 
+                                  select p;             
+                var results = from p in _appDBContext.Items
+                                where EF.Functions.Contains(p.NameItem, searchString) || EF.Functions.Contains(p.Tags, searchString) || EF.Functions.Contains(p.FirstField_String, searchString) || EF.Functions.Contains(p.SecondField_String, searchString) || EF.Functions.Contains(p.ThirdField_String, searchString)
+                                select p;
+                //var results = _appDBContext.Items.Where(x => EF.Functions.FreeText(x.NameItem, searchString));
+                List<Item> items = new();
+                var Listcoll = coll.ToList();
+                var LisyIdComm = new HashSet<int>(comments);
+                foreach(var col in Listcoll)
+                {
+                    var list = _appDBContext.Items.Where(s => s.IdCollection == col.ID);
+                    items.AddRange(list);
+                }
+                foreach(var id in LisyIdComm)
+                {
+                    var list = _appDBContext.Items.Where(s => s.IDItem == id);
+                    items.AddRange(list);
+                }
+                items.AddRange(results.ToList());
+                var unique_items = new HashSet<Item>(items);
+              
+
+                return View(unique_items.ToList());
+            } 
             return RedirectToAction("Index");
         }
 
@@ -260,6 +305,7 @@ namespace Task4Core.Controllers
             Item item = _appDBContext.Items.Where(s => s.IDItem == ItemId).First();
             Collection collection = _appDBContext.Collections.Where(s => s.ID == item.IdCollection).FirstOrDefault();
             item.Likes +=User.Identity.Name+",";
+            item.LikesCount++;
             _appDBContext.Items.Update(item);
             collection.LikeCount++;
             _appDBContext.Collections.Update(collection);
@@ -272,6 +318,7 @@ namespace Task4Core.Controllers
             Item item = _appDBContext.Items.Where(s => s.IDItem == ItemId).First();
             Collection collection = _appDBContext.Collections.Where(s => s.ID == item.IdCollection).FirstOrDefault();
             item.Likes = item.Likes.Replace(User.Identity.Name + ",","");
+            item.LikesCount--;
             _appDBContext.Items.Update(item);
             collection.LikeCount--;
             _appDBContext.Collections.Update(collection);
@@ -342,7 +389,8 @@ namespace Task4Core.Controllers
         public IActionResult EditCollection(int id)
         {
             var collection = _appDBContext.Collections.Where(s => s.ID == id).First();
-            var model = new EdditCollectionViewModel() { CollectionsName = collection.CollectionName, CollectionsTopic = collection.Topic, Description = collection.Description,Id=id };
+            var model = new EdditCollectionViewModel() { CollectionsName = collection.CollectionName, CollectionsTopic = collection.Topic, Description = collection.Description,Id=id,FirstFieldName=collection.FirstFieldName,SecondFieldName=collection.SecondFieldName,ThirdFieldName=collection.ThirdFieldName,FirstField=collection.FirstField,SecondField=collection.SecondFiled,ThirdField=collection.ThirdFiled };
+            
             return View(model);
         }
 
@@ -355,6 +403,9 @@ namespace Task4Core.Controllers
                 col.CollectionName = model.CollectionsName;
                 col.Description = model.Description;
                 col.Topic = model.CollectionsTopic;
+                col.FirstFieldName = model.FirstFieldName;
+                col.SecondFieldName = model.SecondFieldName;
+                col.ThirdFieldName = model.ThirdFieldName;
                 _appDBContext.Collections.Update(col);
                 _appDBContext.SaveChanges();
                 return RedirectToAction("MyColl",new {Username=col.UserName });
@@ -364,7 +415,7 @@ namespace Task4Core.Controllers
 
         public PartialViewResult All(int Id)
         {
-            var model = _appDBContext.Comments.Where(s=>s.ItemId==Id).ToList();
+            var model = _appDBContext.Comments.Where(s=>s.ItemId==Id).OrderBy(s=>s.Id).ToList();
             return PartialView("_CommentsPartial", model);
         }
 
@@ -372,6 +423,7 @@ namespace Task4Core.Controllers
         public IActionResult AddComment(string Comm,int itemID)
         {
             var UserName = User.Identity.Name;
+            AddCommentsCount(itemID);
             _appDBContext.Comments.Add(new CommentModel()
             {
                 ItemId = itemID,
@@ -380,6 +432,14 @@ namespace Task4Core.Controllers
             });
             _appDBContext.SaveChanges();
             return RedirectToAction("ItemPage", new { ItemId= itemID });
+        }
+
+        public void AddCommentsCount(int id)
+        {
+            var item = _appDBContext.Items.Where(s => s.IDItem == id).First();
+            item.CommentsCount++;
+            _appDBContext.Items.Update(item);
+            _appDBContext.SaveChanges();
         }
 
         public IActionResult LikeComm(int id)
@@ -397,6 +457,14 @@ namespace Task4Core.Controllers
             _appDBContext.Update(Comment);
             _appDBContext.SaveChanges();
             return RedirectToAction("ItemPage", new { ItemId = Comment.ItemId });
+        }
+        [HttpPost]
+        public List<string> AutoComplete()
+        {
+            var customers = (from customer in this._appDBContext.Tags                           
+                             select customer.Tag).ToList();
+
+            return customers;
         }
     }
 }

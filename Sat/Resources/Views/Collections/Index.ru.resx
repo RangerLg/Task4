@@ -132,8 +132,17 @@
   <data name="Choose a topic" xml:space="preserve">
     <value>Выберите тему</value>
   </data>
+  <data name="CollectionName" xml:space="preserve">
+    <value>Имя коллекции</value>
+  </data>
   <data name="Find by name" xml:space="preserve">
     <value>Поиск...</value>
+  </data>
+  <data name="ItemCount" xml:space="preserve">
+    <value>Кол-во предметов</value>
+  </data>
+  <data name="LikeCount" xml:space="preserve">
+    <value>Кол-во лайков</value>
   </data>
   <data name="More" xml:space="preserve">
     <value>Больше</value>

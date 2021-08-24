@@ -132,8 +132,17 @@
   <data name="Choose a topic" xml:space="preserve">
     <value>Choose a topic</value>
   </data>
+  <data name="CollectionName" xml:space="preserve">
+    <value>Collection name</value>
+  </data>
   <data name="Find by name" xml:space="preserve">
     <value>Find...</value>
+  </data>
+  <data name="ItemCount" xml:space="preserve">
+    <value>Item count</value>
+  </data>
+  <data name="LikeCount" xml:space="preserve">
+    <value>Like count</value>
   </data>
   <data name="More" xml:space="preserve">
     <value>More</value>

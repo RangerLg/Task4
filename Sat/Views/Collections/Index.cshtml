@@ -17,7 +17,7 @@
             <div class="form-action no-color">
                 <p>
                     <button type="submit" a><i class="fa fa-search"></i></button>
-                    <input type="text" placeholder=@localizer["Find by name"] style="margin-right:0" name="searchString" value=@ViewData["CurrentFilter"] />
+                    <input class="input-css" type="text" placeholder=@localizer["Find by name"]  name="searchString" value=@ViewData["CurrentFilter"] />
                 </p>
             </div>
         </div>
@@ -28,15 +28,15 @@
     <thead>
         <tr>
             <th class="th-css">
-                @Html.ActionLink("Collection Name", "Index", new { sortOrder = ViewBag.NameSortParm, searchString = @ViewData["CurrentFilter"] })
+                <a asp-controller="Collections" asp-action="Index" asp-route-sortOrder=@ViewBag.NameSortParm asp-route-searchString=@ViewData["CurrentFilter"]>@localizer["CollectionName"]</a>
             </th>
 
             <th class="th-css">
-                @Html.ActionLink("Item count", "Index", new { sortOrder = ViewBag.ItemSortParm, searchString = @ViewData["CurrentFilter"] })
+                <a asp-controller="Collections" asp-action="Index" asp-route-sortOrder=@ViewBag.ItemSortParm asp-route-searchString=@ViewData["CurrentFilter"]>@localizer["ItemCount"]</a>
             </th>
 
             <th class="th-css">
-                @Html.ActionLink("Likes count", "Index", new { sortOrder = ViewBag.LikeSortParm, searchString = @ViewData["CurrentFilter"] })
+                <a asp-controller="Collections" asp-action="Index" asp-route-sortOrder=@ViewBag.LikeSortParm asp-route-searchString=@ViewData["CurrentFilter"]>@localizer["LikeCount"]</a>
             </th>
             <th class="th-css">
 
@@ -59,8 +59,8 @@
                 </td>
 
                 <td class="td-css" align="right" width=10%>
-                    <form asp-controller="Collections" asp-action="CollectionPage">
-                        <button type="submit" name="CollectionId" class="btn-more" value=@item.ID>
+                    <form asp-controller="Collections" asp-action="CollectionPage" asp-route-CollectionId=@item.ID>
+                        <button type="submit" name="CollectionId"  class="btn-more" value=@item.ID>
                             @localizer["More"]
                         </button>
                     </form>
@@ -69,3 +69,8 @@
         }
     </tbody>
 </table>
+
+<div class="ui-widget">
+    <input type="hidden" id="hfCustomer" name="CustomerId" />
+</div>
+

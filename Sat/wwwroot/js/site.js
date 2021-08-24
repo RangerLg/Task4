@@ -2,7 +2,7 @@
 
 $('#theme').change(function () {
     console.log("Hi")
-    var item = $("#theme option:selected").text();
+    var item = $("#theme option:selected").val();
     $.post("/Home/SetTheme",{
         data:item
     });

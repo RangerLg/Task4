@@ -4,93 +4,48 @@
 @using Microsoft.AspNetCore.Http;
 <html lang="ru">
 <head>
+
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport"  />
     <title>@ViewData["Title"] - Sat</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <script src="~/js/site.js"></script>
-    @{
-        var theme = httpContextAccessor.HttpContext.Request.Cookies["theme"] != null ? httpContextAccessor.HttpContext.Request.Cookies["theme"].ToString() : "Light";
-        if (theme == "Light")
-        {
+        @{
+            var theme = httpContextAccessor.HttpContext.Request.Cookies["theme"] != null ? httpContextAccessor.HttpContext.Request.Cookies["theme"].ToString() : "Light";
+            if (theme == "Light")
+            {
 
-            <link href="~/css/site.css" rel="stylesheet" />
-        }
-        else
-        {
+                <link href="~/css/site.css" rel="stylesheet" />
+            }
+            else
+            {
 
-            <link href="~/css/site-dark.css" rel="stylesheet" />
+                <link href="~/css/site-dark.css" rel="stylesheet" />
+            }
         }
-    }
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.3.1/dt-1.10.25/b-1.7.1/fc-3.3.3/sc-2.0.4/sb-1.1.0/sp-1.3.0/sl-1.3.3/datatables.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.3.1/dt-1.10.25/b-1.7.1/fc-3.3.3/sc-2.0.4/sb-1.1.0/sp-1.3.0/sl-1.3.3/datatables.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
+
 <body>
+   
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm   border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApplication1</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Collections" asp-action="Index1">WebApplication1</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link " asp-area="" asp-controller="Roles" asp-action="UserList">@localizer["Users"]</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link " asp-area="" asp-controller="Roles" asp-action="Index">@localizer["Roles"]</a>
-                            </li>
-                        }
-                        else
-                        {
-                            if (User.Identity.IsAuthenticated)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Collections" asp-action="MyColl">@localizer["My collections"]</a>
-                                </li>
-                            }
-
-                        }
-                        <li class="nav-item">
-                            <a class="nav-link " asp-area="" asp-controller="Collections" asp-action="Index">@localizer["Collections"]</a>
-                        </li>
-                        <li class="nav-item">
-                            <form class="example" asp-controller="Collections" asp-action="Items" method="post">
-                                <button type="submit" a><i class="fa fa-search"></i></button>
-                                <input type="text" placeholder=@localizer["Search"] name="searchString" value=@ViewData["CurrentFilter"] />
-                            </form>
-                        </li>
-
+                
+                    <ul class="navbar-nav">
+                        <partial name="_layoutPartial" />                      
                     </ul>
-                    <div>
-                        @{
-                            var them = httpContextAccessor.HttpContext.Request.Cookies["theme"] != null ? httpContextAccessor.HttpContext.Request.Cookies["theme"].ToString() : "Light";
+                    <ul class="navbar-nav ml-auto">
+                        <partial name="_CulturePartial" />
+                        <partial name="_LoginPartial" />
+                    </ul>
 
-                            if (them == "Light")
-                            {
-                                <select name="theme" id="theme">
-                                    <option selected value="0">@localizer["Light"]</option>
-                                    <option value="1">@localizer["Dark"]</option>
-                                </select>
-                            }
-                            else
-                            {
-                                <select name="theme" id="theme">
-                                    <option value="0">@localizer["Light"]</option>
-                                    <option selected value="1">@localizer["Dark"]</option>
-                                </select>
-                            }
-                        }
-                    </div>
-                    <partial name="_CulturePartial" />
-                    <partial name="_LoginPartial" />
-                </div>
             </div>
         </nav>
     </header>
@@ -101,10 +56,12 @@
     </div>
 
 
-    }
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

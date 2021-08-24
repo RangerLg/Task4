@@ -1,0 +1,38 @@
+﻿
+<body>
+    @section Scripts
+    {
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+        <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script type="text/javascript">
+            var langs;
+            $(function () {
+                console.log("HI")
+                $.ajax({
+                    url: '/Collections/AutoComplete',
+                    type: "POST",
+                    success: function (result) {
+                        console.log(result);
+                        langs = result;
+                        $("#txtCustomer").autocomplete({
+                            source: langs,
+                            minLength: 3
+                        });
+                    }
+                })
+            }
+            )
+        </script>
+    }
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        <input type="text" id="txtCustomer" name="CustomerName" />
+        <input type="hidden" id="hfCustomer" name="CustomerId" />
+        <br /><br />
+        <input type="submit" id="btnSubmit" value="Submit" />
+        <br /><br />
+        @ViewBag.Message
+    }
+</body>

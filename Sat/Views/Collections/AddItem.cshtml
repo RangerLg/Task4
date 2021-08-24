@@ -110,24 +110,51 @@
         }
     }
 
+
     <div id="textboxDiv"></div>
     <div>
         <button type="submit" value=@Model.Id.ID name="CollectionId" class="button-css">@localizer["Add"]</button>
     </div>
+
 </form>
 
 
+@section Scripts
+    {
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<script src="~/lib/jquery/dist/jquery.js"></script>
-<script>
-    var count = 0;
-    $(document).ready(function () {
-        var Tag = $("#Tag").val();
-        $("#Add").on("click", function () {
-            $("#textboxDiv").append("<div><br><label>" + Tag + "</label><input name='Tags' type='text'/><br></div>");
+    <script>
+        var count = 0;
+        $(document).ready(function () {
+            var Tag = $("#Tag").val();
+            $("#Add").on("click", function () {
+                $("#textboxDiv").append("<div><br><label>" + Tag + "</label><input name='Tags' id='txtCustomer' type='text'/><br></div>");
+                $.ajax({
+                    url: '/Collections/AutoComplete',
+                    type: "POST",
+                    success: function (result) {
+                        console.log(result);
+                        tags = result;
+                        $("#txtCustomer").autocomplete({
+                            source: function (request, response) {
+                                var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
+                                response($.grep(tags, function (item) {
+                                    return matcher.test(item);
+                                }));
+                            },
+                            minLength: 1
+                        });
+
+                    }
+                })
+
+            });
+            $("#Remove").on("click", function () {
+                $("#textboxDiv").children().last().remove();
+            });
         });
-        $("#Remove").on("click", function () {
-            $("#textboxDiv").children().last().remove();
-        });
-    });
-</script>
+    </script>
+}

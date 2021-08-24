@@ -4,7 +4,7 @@
   "parameters": {
     "resourceGroupName": {
       "type": "string",
-      "defaultValue": "Task4",
+      "defaultValue": "ItrCursach",
       "metadata": {
         "_parameterType": "resourceGroup",
         "description": "Имя группы ресурсов для ресурса. Рекомендуется поместить ресурсы в одну группу ресурсов для более удобного отслеживания."
@@ -36,7 +36,7 @@
     },
     {
       "type": "Microsoft.Resources/deployments",
-      "name": "[concat(parameters('resourceGroupName'), 'Deployment', uniqueString(concat('Task4Core_db', subscription().subscriptionId)))]",
+      "name": "[concat(parameters('resourceGroupName'), 'Deployment', uniqueString(concat('ItrCursuch', subscription().subscriptionId)))]",
       "resourceGroup": "[parameters('resourceGroupName')]",
       "apiVersion": "2019-10-01",
       "dependsOn": [
@@ -51,7 +51,7 @@
             {
               "kind": "v12.0",
               "location": "[parameters('resourceLocation')]",
-              "name": "task4coredbserver",
+              "name": "itrcursuchdbserver",
               "type": "Microsoft.Sql/servers",
               "apiVersion": "2017-10-01-preview"
             },
@@ -63,11 +63,11 @@
               },
               "kind": "v12.0,user",
               "location": "[parameters('resourceLocation')]",
-              "name": "task4coredbserver/Task4Core_db",
+              "name": "itrcursuchdbserver/ItrCursuch",
               "type": "Microsoft.Sql/servers/databases",
               "apiVersion": "2017-10-01-preview",
               "dependsOn": [
-                "task4coredbserver"
+                "itrcursuchdbserver"
               ]
             }
           ]

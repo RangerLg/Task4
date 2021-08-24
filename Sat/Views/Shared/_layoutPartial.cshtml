@@ -1,0 +1,28 @@
+﻿
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+<script src="~/js/site.js"></script>
+
+@if (User.IsInRole("Admin"))
+{
+    <li class="nav-item">
+        <a class="nav-link " asp-area="" asp-controller="Roles" asp-action="UserList">@localizer["Users"]</a>
+    </li>
+}
+@if (User.Identity.IsAuthenticated)
+{
+<li class="nav-item">
+    <a class="nav-link" asp-area="" asp-controller="Collections" asp-action="MyColl">@localizer["My collections"]</a>
+</li>
+        }
+
+<li class="nav-item">
+    <a class="nav-link " asp-area="" asp-controller="Collections" asp-action="Index">@localizer["Collections"]</a>
+</li>
+<li class="nav-item">
+    <form class="example form-inline" asp-controller="Collections" asp-action="Items" method="post">
+        <input class="input-css" type="text" placeholder=@localizer["Search"] name="searchString" value=@ViewData["CurrentFilter"] />
+        <button type="submit" a><i class="fa fa-search"></i></button>
+    </form>
+</li>
+ 

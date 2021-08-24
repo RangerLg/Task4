@@ -1,56 +1,58 @@
 ﻿@model IEnumerable<Sat.Models.User>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
 @{ ViewBag.Title = "Список пользователей"; }
 @if (User.Identity.IsAuthenticated)
 {
 
     @using (Html.BeginForm("BlockorDelete", "Users", FormMethod.Post))
     {
-        <input type="submit" name="ButtonType" value="Block selected" />
-        <input type="submit" name="ButtonType" value="Unblock selected" />
-        <input type="submit" name="ButtonType" value="Delete selected" />
+        <button type="submit" name="ButtonType" class="button-css" value="Block selected">@localizer["Block selected"]</button>
+        <button type="submit" name="ButtonType"class="button-css" value="Unblock selected">@localizer["Unblock selected"]</button>
+        <button type="submit" name="ButtonType"class="button-css" value="Delete selected">@localizer["Delete selected"]</button>
 
-        <table class="table" style="margin-top:20px">
+
+
+        <table class="table-css" style="margin-top:20px">
 
             <tr>
-                <th>
+                <th class="th-css">
                     <input type="checkbox" id="checkAll" name="checkAll" class="JchkAll" onclick="Selectall();" />
                 </th>
-                <th>Email</th>
-                
-                <th>UserName</th>
-                <th>DataLog</th>
-             
-                <th>Status</th>
-                <th></th>
+                <th class="th-css">@localizer["Email"]</th>
+
+                <th class="th-css">@localizer["UserName"]</th>
+                <th class="th-css">@localizer["Status"]</th>
+                <th class="th-css"></th>
             </tr>
             @foreach (var user in Model)
             {
-                <tr>
+                <tr class="tr-css">
 
-                    <td>
+                    <td class="td-css">
                         <input type='checkbox' id="employeeIdsToDelete" name="employeeIdsToDelete" class="JchkGrid" value="@user.Id" />
                     </td>
-                    <td>@user.Email</td>                 
-                    <td>@user.UserName</td>
-                    <td>@user.DataLog.ToShortDateString()</td>
+                    <td class="td-css">@user.Email</td>
+                    <td class="td-css">@user.UserName</td>
+
                     @if (user.LockoutEnabled)
                     {
-                        <td>
-                            Block
-                        </td>
+                <td class="td-css">
+                    @localizer["Block"]
+                </td>
 
                     }
                     else
                     {
-                        <td>Activ</td>
+                <td class="td-css">@localizer["Activ"]</td>
                     }
 
-                <td align="right">
-                    
-                        <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-userid="@user.Id">Access rights</a>
-                        <a class="btn btn-sm btn-primary" asp-controller="Collections" asp-action="MyColl" asp-route-Username=@user.UserName>Collections</a>
-                  
-                </td>
+                    <td class="td-css" align="right">
+
+                        <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-userid="@user.Id">@localizer["Access rights"]</a>
+                        <a class="btn btn-sm btn-primary" asp-controller="Collections" asp-action="MyColl" asp-route-Username=@user.UserName>@localizer["Collections"]</a>
+
+                    </td>
                 </tr>
             }
         </table>

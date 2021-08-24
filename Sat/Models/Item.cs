@@ -37,5 +37,9 @@ namespace Task4Core.Models
 
         public string Tags { get; set; }
 
+        public int LikesCount { get; set; }
+
+        public int CommentsCount { get; set; }
+
     }
 }

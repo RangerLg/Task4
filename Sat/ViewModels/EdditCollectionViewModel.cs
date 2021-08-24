@@ -13,12 +13,26 @@ namespace Task4Core.ViewModels
         public string CollectionsName { get; set; }
 
         [Required]
-        [Display(Name = "Collections")]
+        [Display(Name = "Id")]
         public int Id { get; set; }
+        public string FirstField { get; set; }
+        public string SecondField { get; set; }
+        public string ThirdField { get; set; }
+
 
         [Required]
         [Display(Name = "Topic")]
         public string CollectionsTopic { get; set; }
+        
+       
+        [Display(Name = "FirstFieldName")]
+        public string FirstFieldName { get; set; }
+        
+        [Display(Name = "SecondFieldName")]
+        public string SecondFieldName { get; set; }
+        
+        [Display(Name = "ThirdFieldName")]
+        public string ThirdFieldName { get; set; }
 
         [Required]
         [Display(Name = "Description")]

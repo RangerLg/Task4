@@ -8,7 +8,7 @@
 <textarea hidden id="Fieldtype">@localizer["Field type"]</textarea>
 <textarea hidden id="Fieldname">@localizer["Field name"]</textarea>
 <div>
-    <button id="Add">@localizer["Click to add field"]</button> <button id="Remove">@localizer["Click to remove field"]</button>
+    <button class="button-css" id="Add">@localizer["Click to add field"]</button> <button class="button-css" id="Remove">@localizer["Click to remove field"]</button>
 </div>
 <form style="margin-top:30px" method="post" asp-controller="Collections" asp-action="AddCollection">
     <div asp-validation-summary="ModelOnly"></div>
@@ -38,7 +38,6 @@
     <div>
         <input type="submit" value=@localizer["Add"] class="button-css" />
     </div>
-    <input type="text" hidden value=@Model.UserName name="Username" />
 </form>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script>

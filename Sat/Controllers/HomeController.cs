@@ -27,12 +27,12 @@ namespace Sat.Controllers
             return View();
         }
 
-        public IActionResult SetTheme(string data)
+        public IActionResult SetTheme(string theme, string returnUrl)
         {
             CookieOptions cookies = new CookieOptions();
             cookies.Expires = DateTime.Now.AddDays(1);
-            Response.Cookies.Append("theme", data, cookies);
-            return Ok();
+            Response.Cookies.Append("theme", theme, cookies);
+            return LocalRedirect(returnUrl);
         }
 
         //public IActionResult Privacy()

@@ -27,6 +27,6 @@ namespace Sat.Models
 
         public DbSet<CommentModel> Comments { get; set; }
 
-
+        public DbSet<Tags> Tags { get; set; }
     }
 }

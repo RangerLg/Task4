@@ -6,19 +6,21 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Security.Claims;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.Localization;
 
-namespace Sat.Controllers
+namespace Task4Core.Controllers
 {
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        private readonly IHtmlLocalizer<AccountController> _localizer;
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IHtmlLocalizer<AccountController> localizer)
         {
             
             _userManager = userManager;
             _signInManager = signInManager;
+            _localizer = localizer;
         }
         [HttpGet]
         public IActionResult Register()
@@ -30,9 +32,8 @@ namespace Sat.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Email, Name=model.Name};
-                user.DataReg = DateTime.Today;
-                user.DataLog = DateTime.Today;
+                User user = new User { Email = model.Email, UserName = model.Email};
+               
                 user.LockoutEnabled = false;
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -40,7 +41,7 @@ namespace Sat.Controllers
                 if (result.Succeeded)
                 {
                     var userToId = await _userManager.FindByEmailAsync(model.Email);
-                    await _userManager.AddToRoleAsync(userToId, "User");
+                    //await _userManager.AddToRoleAsync(userToId, "User");
                     // установка куки
                     await _signInManager.SignInAsync(user, false);
                     var res = await _userManager.FindByNameAsync(model.Email);
@@ -85,10 +86,10 @@ namespace Sat.Controllers
                     else
                     {
                         var res = await _userManager.FindByEmailAsync(model.Email);
-                        res.DataLog = DateTime.Today;
+                       
                         await _userManager.UpdateAsync(res);
-                        var role = _userManager.IsInRoleAsync(res, "User");
-                        if (role.Result)
+                        var role = _userManager.IsInRoleAsync(res, "Admin");
+                        if (!role.Result)
                         {
                             return RedirectToAction("Index", "Collections");
                         }
@@ -102,14 +103,14 @@ namespace Sat.Controllers
                 else
                 {
                     var res = await _userManager.FindByEmailAsync(model.Email);
-
-                    if (res.LockoutEnabled == true)
+                    var test = _localizer["You are blocked"];
+                    if (res != null &&res.LockoutEnabled == true)
                     {
-                        ModelState.AddModelError("", "You are blocked");
+                        ModelState.AddModelError("", _localizer.GetString("You are blocked"));
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                        ModelState.AddModelError("", _localizer.GetString("Incorrect username and (or) password"));
                     }
                 }
             }
@@ -126,8 +127,6 @@ namespace Sat.Controllers
 
             return new ChallengeResult(provider, properties);
         }
-
-
         public async Task<IActionResult>
     ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {

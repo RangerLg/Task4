@@ -33,7 +33,7 @@ namespace Task4Core.Controllers
             if (ModelState.IsValid)
             {
                 User user = new User { Email = model.Email, UserName = model.Email  };
-                user.DataReg = DateTime.Today;
+                
                 var result = await _userManager.CreateAsync(user, model.Password);
                 
                 if (result.Succeeded)
@@ -153,7 +153,7 @@ namespace Task4Core.Controllers
             if (!isUser|| ButtonType == "Unblock selected")
             {
            
-                return RedirectToAction("Index");
+                return RedirectToAction("UserList","Roles");
             }
             else 
             {               

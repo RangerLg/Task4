@@ -117,25 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Access rights" xml:space="preserve">
+    <value>Права доступа</value>
+  </data>
+  <data name="Activ" xml:space="preserve">
+    <value>Активный</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Заблокированный</value>
+  </data>
+  <data name="Block selected" xml:space="preserve">
+    <value>Заблокировать выранных</value>
+  </data>
   <data name="Collections" xml:space="preserve">
     <value>Коллекции</value>
   </data>
-  <data name="Dark" xml:space="preserve">
-    <value>Тёмная</value>
+  <data name="Delete selected" xml:space="preserve">
+    <value>Удалить выбранных</value>
   </data>
-  <data name="Light" xml:space="preserve">
-    <value>Светлая</value>
+  <data name="Email" xml:space="preserve">
+    <value>Почта</value>
   </data>
-  <data name="MyCollections" xml:space="preserve">
-    <value>Мои коллекции</value>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
   </data>
-  <data name="Roles" xml:space="preserve">
-    <value>Роли</value>
+  <data name="Unblock selected" xml:space="preserve">
+    <value>Разблокировать выбранных</value>
   </data>
-  <data name="Search" xml:space="preserve">
-    <value>Поиск...</value>
-  </data>
-  <data name="Users" xml:space="preserve">
-    <value>Пользоватили</value>
+  <data name="UserName" xml:space="preserve">
+    <value>Имя пользователя</value>
   </data>
 </root>

@@ -117,34 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add new item" xml:space="preserve">
-    <value>Новый предмет</value>
+  <data name="Access rights" xml:space="preserve">
+    <value>Access rights</value>
   </data>
-  <data name="Collection description" xml:space="preserve">
-    <value>Описание коллекции</value>
+  <data name="Activ" xml:space="preserve">
+    <value>Activ</value>
   </data>
-  <data name="CommentsCount" xml:space="preserve">
-    <value>Кол-во комментариев</value>
+  <data name="Block" xml:space="preserve">
+    <value>Block</value>
   </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Удалить</value>
+  <data name="Block selected" xml:space="preserve">
+    <value>Block selected</value>
   </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Редактировать</value>
+  <data name="Collections" xml:space="preserve">
+    <value>Collections</value>
   </data>
-  <data name="Find by name" xml:space="preserve">
-    <value>Поиск...</value>
+  <data name="Delete selected" xml:space="preserve">
+    <value>Delete selected</value>
   </data>
-  <data name="Item name" xml:space="preserve">
-    <value>Имя предмета</value>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
   </data>
-  <data name="LikesCount" xml:space="preserve">
-    <value>Кол-во лайков</value>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
   </data>
-  <data name="More" xml:space="preserve">
-    <value>Больше</value>
+  <data name="Unblock selected" xml:space="preserve">
+    <value>Unblock selected</value>
   </data>
-  <data name="Tags" xml:space="preserve">
-    <value>Теги</value>
+  <data name="UserName" xml:space="preserve">
+    <value>User name</value>
   </data>
 </root>

@@ -10,26 +10,31 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: unset;
+    width:auto
 }
 
+
 /* Provide sufficient contrast against white background */
-a , .btn-link{
-  color: var(--font-color);
+a, .btn-link {
+    color: var(--font-color);
+    width: auto
 }
 
 .btn-primary {
-  color: var(--font-color);
-  background-color: var(--background);
-  border-color: var(--highlight);
+    color: var(--font-color);
+    background-color: var(--background);
+    border-color: var(--highlight);
+    width: auto
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link .nav-item {
     color: var(--font-color);
     background-color: var(--background);
     border-color: var(--highlight);
+    width: auto
 }
 
 
@@ -37,10 +42,22 @@ a , .btn-link{
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
-  font-size: 14px;
+@media(min-width:500px) {
+    html {
+        font-size: 6px;
+    }
 }
-@media (min-width: 768px) {
+@media(min-width:770px) {
+    html {
+        font-size: 10px;
+    }
+}
+@media(min-width:770px) {
+    html {
+        font-size: 10px;
+    }
+}
+@media (min-width: 1004px) {
   html {
     font-size: 16px;
   }
@@ -93,8 +110,7 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 .select-css {
-    display:block;
-    font-size: 14px;
+    display:block;  
     font-family: sans-serif;
     font-weight: 100;
     color: var(--font-color);
@@ -155,7 +171,6 @@ body {
 .table-css {
     margin-top:30px;
     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-    font-size: 14px;
     background: var(--background);
     max-width: 100%;
     width: 100%;
@@ -230,7 +245,6 @@ form.example button {
     padding: .6em 1.4em .5em .8em;
     background: #2196F3;
     color: white;
-    font-size: 14px;
     border: 1px solid grey;
     border-left: none; /* Prevent double borders */
     cursor: pointer;
@@ -244,11 +258,11 @@ form.example button {
     }
 
 form.example input[type=text] {
+    background-color: var(--background);
+    color: var(--font-color);
     padding: .6em 1.4em .5em .8em;
-    font-size: 14px;
     border: 1px solid grey;
     float: right;
-    background: #f1f1f1;
     margin-top: 0;
 }
 /* Clear floats */
@@ -275,6 +289,7 @@ select {
     border-radius:5px;
     background-color: var(--background);
     color: var(--font-color);
+    margin: 5px 5px 5px 5px
 }
 textarea {
     border: 1px solid var(--font-color);
@@ -290,4 +305,19 @@ textarea {
 input[type=checkbox][disabled] {
     background-color:var(--background);
     color:var(--font-color);
+}
+
+input[type=text] {
+    background-color: var(--background);
+    color: var(--font-color);
+}
+
+input[type=submit] {
+    background-color: var(--background);
+    color: var(--font-color);
+    border-radius:5px;
+}
+.input-css {
+    background-color: var(--background);
+    color: var(--font-color);
 }

@@ -117,25 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Collections" xml:space="preserve">
-    <value>Collections</value>
+  <data name="Incorrect username and (or) password" xml:space="preserve">
+    <value>Incorrect username and (or) password!!!</value>
   </data>
-  <data name="Dark" xml:space="preserve">
-    <value>Dark</value>
-  </data>
-  <data name="Light" xml:space="preserve">
-    <value>Light</value>
-  </data>
-  <data name="MyCollections" xml:space="preserve">
-    <value>My collections</value>
-  </data>
-  <data name="Roles" xml:space="preserve">
-    <value>Roles</value>
-  </data>
-  <data name="Search" xml:space="preserve">
-    <value>Search...</value>
-  </data>
-  <data name="Users" xml:space="preserve">
-    <value>Users</value>
+  <data name="You are blocked" xml:space="preserve">
+    <value>You are blocked!!!</value>
   </data>
 </root>

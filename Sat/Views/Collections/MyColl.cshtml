@@ -44,7 +44,7 @@
                 </td>
 
                 <td class="td-css" align="right" width=40%>
-                    <form asp-controller="Collections" asp-action="CollectionPage">
+                    <form asp-controller="Collections" asp-action="CollectionPage" asp-route-CollectionId=@item.ID>
                         <a class="btn-edit" asp-action="EditCollection" asp-route-id=@item.ID>@localizer["Edit"]</a>
                         <a class="btn-edit" asp-action="DeleteCollections" asp-route-id=@item.ID>@localizer["Delete"]</a>
                         <button type="submit" name="CollectionId" class="btn-more" value=@item.ID>
