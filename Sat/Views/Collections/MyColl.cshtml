@@ -1,0 +1,58 @@
+﻿@model Task4Core.Models.UserAndCollections
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+<div class="row">
+    <div class="col-md-6">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <form style="margin-bottom:40px" asp-controller="Collections" asp-action="AddCollection" asp-route-Username=@Model.UserName asp-route-returnUrl="@Url.Action("MyColl", "Collections", new { area = "" })">
+                <button type="submit" class="btn-add">@localizer["AddCollections"]</button>
+            </form>
+        }
+    </div>
+
+</div>
+<table class="table-css">
+    <thead>
+        <tr class="tr-css">
+            <th class="th-css">
+                @localizer["CollectionsName"]
+            </th>
+            <th class="th-css">
+                @localizer["Item count"]
+            </th>
+            <th class="th-css">
+                @localizer["Like count"]
+            </th>
+            <th class="th-css">
+                <label hidden>button</label>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.collections)
+        {
+            <tr class="tr-css">
+                <td class="td-css">
+                    @item.CollectionName
+                </td>
+                <td class="td-css">
+                    @item.ItemCount
+                </td>
+                <td class="td-css">
+                    @item.LikeCount
+                </td>
+
+                <td class="td-css" align="right" width=40%>
+                    <form asp-controller="Collections" asp-action="CollectionPage" asp-route-CollectionId=@item.ID>
+                        <a class="btn-edit" asp-action="EditCollection" asp-route-id=@item.ID>@localizer["Edit"]</a>
+                        <a class="btn-edit" asp-action="DeleteCollections" asp-route-id=@item.ID>@localizer["Delete"]</a>
+                        <button type="submit" name="CollectionId" class="btn-more" value=@item.ID>
+                            @localizer["More"]
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

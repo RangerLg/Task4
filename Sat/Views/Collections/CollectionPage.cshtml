@@ -1,0 +1,91 @@
+﻿@model Task4Core.Models.CollectionsItems
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@using Markdig
+<div name="Collection" id="Collection">
+    <input asp-for="collections.Description" hidden class="TextJq" name="Text" type="text">
+    <h2>@localizer["Collection description"]</h2>
+</div>
+
+
+<div class="row" style="margin-top:20px">
+
+    <div class="col-6">
+        @if (User.Identity.Name == Model.collections.UserName || User.IsInRole("Admin"))
+        {
+            <form asp-controller="Collections" asp-action="AddItem" asp-route-CollectionId=@Model.collections.ID asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" name="CollectionId" value=@Model.collections.ID class="btn-add">@localizer["Add new item"]</button>
+            </form>
+        }
+    </div>
+    <div class="col-6">
+        <form class="example" asp-action="CollectionPage" asp-route-CollectionId=@Model.collections.ID method="post">
+            <p>
+                <button type="submit" a><i class="fa fa-search"></i></button>
+                <input type="text" placeholder=@localizer["Find by name"] style="margin-right:0" name="searchString" value=@ViewData["CurrentFilter"] />
+            </p>
+
+        </form>
+    </div>
+</div>
+<table class="table-css">
+    <thead>
+        <tr>
+            <th class="th-css">
+                <a asp-controller="Collections" asp-action="CollectionPage" asp-route-CollectionId=@Model.collections.ID asp-route-sortOrder=@ViewBag.NameSortParm asp-route-searchString=@ViewData["CurrentFilter"]>@localizer["Item name"]</a>
+            </th>
+            <th class="th-css">
+                <a asp-controller="Collections" asp-action="CollectionPage" asp-route-CollectionId=@Model.collections.ID asp-route-sortOrder=@ViewBag.DateSortParm asp-route-searchString=@ViewData["CurrentFilter"] >@localizer["LikesCount"]</a>
+            </th>
+            <th class="th-css">
+                <a asp-controller="Collections" asp-action="CollectionPage" asp-route-CollectionId=@Model.collections.ID asp-route-sortOrder=@ViewBag.CommentsSortParm asp-route-searchString=@ViewData["CurrentFilter"] >@localizer["CommentsCount"]</a>
+            </th>
+            <th class="th-css"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.items)
+        {
+
+        <tr>
+            <td class="td-css" align="left">
+
+                @item.NameItem
+
+            </td>
+            <td class="td-css">
+
+                @item.LikesCount
+
+            </td>
+            <td class="td-css">
+
+                @item.CommentsCount
+
+            </td>
+            <td class="td-css" align="right" width=40%>
+                <form asp-controller="Collections" asp-action="ItemPage" asp-route-ItemId=@item.IDItem method="post">
+                    @if (User.Identity.Name == Model.collections.UserName || User.IsInRole("Admin"))
+                    {
+                        <a class="btn-edit" asp-action="EditItem" asp-route-id=@item.IDItem>
+                            @localizer["Edit"]
+                        </a>
+                        <a class="btn-edit" asp-action="DeleteItem" asp-route-id=@item.IDItem>
+                            @localizer["Delete"]
+                        </a>
+                    }
+                    <button class="btn-more" type="submit" name="ItemId" value=@item.IDItem>
+                        @localizer["More"]
+                    </button>
+                </form>
+
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(window).on('load', function () {
+        $("#Collection").append($(".TextJq").val());
+    });
+</script>

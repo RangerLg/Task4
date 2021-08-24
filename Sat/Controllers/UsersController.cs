@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using Sat.ViewModels;
 using System;
 
-namespace CustomIdentityApp.Controllers
+namespace Task4Core.Controllers
 {
     public class UsersController : Controller
     {
-        UserManager<User> _userManager;
+        readonly UserManager<User> _userManager;
 
         public UsersController(UserManager<User> userManager)
         {
@@ -23,6 +23,8 @@ namespace CustomIdentityApp.Controllers
             return View(_userManager.Users.ToList());
         }
 
+
+
         public IActionResult Create() => View();
 
         [HttpPost]
@@ -31,7 +33,7 @@ namespace CustomIdentityApp.Controllers
             if (ModelState.IsValid)
             {
                 User user = new User { Email = model.Email, UserName = model.Email  };
-                user.DataReg = DateTime.Today;
+                
                 var result = await _userManager.CreateAsync(user, model.Password);
                 
                 if (result.Succeeded)
@@ -151,7 +153,7 @@ namespace CustomIdentityApp.Controllers
             if (!isUser|| ButtonType == "Unblock selected")
             {
            
-                return RedirectToAction("Index");
+                return RedirectToAction("UserList","Roles");
             }
             else 
             {               

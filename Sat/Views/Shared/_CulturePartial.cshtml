@@ -1,0 +1,36 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@using Microsoft.AspNetCore.Http;
+@inject Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Builder.RequestLocalizationOptions> localOptions
+@inject IHttpContextAccessor httpContextAccessor
+@{
+    var culture = Context.Features.Get<Microsoft.AspNetCore.Localization.IRequestCultureFeature>();
+    var cultureList = localOptions.Value.SupportedUICultures.Select(x => new SelectListItem { Value = x.Name, Text = localizer.GetString(x.Name) }).ToList();
+    var returnUrl = string.IsNullOrWhiteSpace(Context.Request.Path) ? "/~" : $"~{Context.Request.Path.Value}{Context.Request.QueryString}";
+    var them = httpContextAccessor.HttpContext.Request.Cookies["theme"] != null ? httpContextAccessor.HttpContext.Request.Cookies["theme"].ToString() : "Light";
+}
+<li class="nav-item">
+    <form asp-action="SetTheme" , asp-controller="Home" method="post" , asp-route-returnUrl=@returnUrl>
+
+        @if (them == "Light")
+        {
+            <select name="theme" onchange="this.form.submit()">
+                <option selected value="Light">@localizer["Light"]</option>
+                <option value="Dark">@localizer["Dark"]</option>
+            </select>
+        }
+        else
+        {
+            <select name="theme" onchange="this.form.submit()">
+                <option value="Light">@localizer["Light"]</option>
+                <option selected value="Dark">@localizer["Dark"]</option>
+            </select>
+        }
+    </form>
+</li>
+<li class="nav-item">
+    <div>
+        <form asp-action="CultureManagement" , asp-controller="Home" method="post" asp-route-returnUrl=@returnUrl>
+            <select name="Culture" asp-for="@culture.RequestCulture.UICulture.Name" asp-items="cultureList" onchange="this.form.submit();"></select>
+        </form>
+    </div>
+</li>

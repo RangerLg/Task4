@@ -1,0 +1,160 @@
+﻿@model Task4Core.ViewModels.AddItemViewModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+<textarea hidden id="Tag">@localizer["Tag"]</textarea>
+<h3 style="margin-bottom:10px">@localizer["AddNewItem"]</h3>
+<div>
+    <button id="Add" class="button-css">@localizer["Click to add tag"]</button> <button id="Remove" class="button-css">@localizer["Click to remove tag"]</button>
+</div>
+<form style="margin-top:20px" method="post" asp-controller="Collections" asp-action="AddItem">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="ItemName">@localizer["ItemName"]</label>
+        <input asp-for="ItemName" />
+        <span asp-validation-for="ItemName"></span>
+    </div>
+    @if (Model.Id.FirstField != null)
+    {
+
+        <label>@Model.Id.FirstFieldName:</label>
+
+        @switch (@Model.Id.FirstField)
+        {
+            case "Int":
+                <input asp-for="FirstFiled_Int" />
+                <span asp-validation-for="FirstFiled_Int"></span>
+                break;
+            case "String":
+                <textarea rows="4" cols="40" style="resize:none" asp-for="FirstFiled_String">
+                </textarea>
+                <span asp-validation-for="FirstFiled_String"></span>
+                break;
+            case "Data":
+                <input type="date" asp-for="FirstFiled_Data" />
+                <span asp-validation-for="FirstFiled_Data"></span>
+                break;
+            case "Bool":
+                <input type="checkbox" asp-for="FirstFiled_Bool" />
+                <span asp-validation-for="FirstFiled_Data"></span>
+                break;
+        }
+    }
+    <br />
+    @if (@Model.Id.SecondFiled != null)
+    {
+        <label>@Model.Id.SecondFieldName:</label>
+
+        @switch (@Model.Id.SecondFiled)
+        {
+
+            case "Int":
+
+
+                <input asp-for="SecondFiled_Int" />
+                <span asp-validation-for="SecondFiled_Int"></span>
+
+                break;
+
+            case "String":
+
+
+                <textarea rows="4" cols="40" style="resize:none" asp-for="SecondFiled_String">
+                </textarea>
+                <span asp-validation-for="SecondFiled_String"></span>
+
+                break;
+
+            case "Data":
+
+
+                <input type="date" asp-for="SecondFiled_Data" />
+                <span asp-validation-for="SecondFiled_Data"></span>
+
+                break;
+
+            case "Bool":
+                <input type="checkbox" asp-for="SecondFiled_Bool" />
+                <span asp-validation-for="SecondFiled_Bool"></span>
+                break;
+        }
+    }
+    <br />
+    @if (@Model.Id.ThirdFiled != null)
+    {
+        <label>@Model.Id.ThirdFieldName:</label>
+        @switch (@Model.Id.ThirdFiled)
+        {
+            case "Int":
+
+
+                <input asp-for="ThirdFiled_Int" />
+                <span asp-validation-for="ThirdFiled_Int"></span>
+
+                break;
+
+            case "String":
+                <textarea rows="4" cols="40" style="resize:none" asp-for="ThirdFiled_String">
+                </textarea>
+                <span asp-validation-for="ThirdFiled_String"></span>
+
+                break;
+
+            case "Data":
+                <input type="date" asp-for="ThirdFiled_Data" />
+                <span asp-validation-for="ThirdFiled_Data"></span>
+                break;
+
+            case "Bool":
+                <input type="checkbox" asp-for="ThirdFiled_Bool" />
+                <span asp-validation-for="ThirdFiled_Bool"></span>
+                break;
+        }
+    }
+
+
+    <div id="textboxDiv"></div>
+    <div>
+        <button type="submit" value=@Model.Id.ID name="CollectionId" class="button-css">@localizer["Add"]</button>
+    </div>
+
+</form>
+
+
+@section Scripts
+    {
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        var count = 0;
+        $(document).ready(function () {
+            var Tag = $("#Tag").val();
+            $("#Add").on("click", function () {
+                $("#textboxDiv").append("<div><br><label>" + Tag + "</label><input name='Tags' id='txtCustomer' type='text'/><br></div>");
+                $.ajax({
+                    url: '/Collections/AutoComplete',
+                    type: "POST",
+                    success: function (result) {
+                        console.log(result);
+                        tags = result;
+                        $("#txtCustomer").autocomplete({
+                            source: function (request, response) {
+                                var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
+                                response($.grep(tags, function (item) {
+                                    return matcher.test(item);
+                                }));
+                            },
+                            minLength: 1
+                        });
+
+                    }
+                })
+
+            });
+            $("#Remove").on("click", function () {
+                $("#textboxDiv").children().last().remove();
+            });
+        });
+    </script>
+}

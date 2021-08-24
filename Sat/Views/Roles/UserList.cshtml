@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Sat.Models.User>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+@{ ViewBag.Title = "Список пользователей"; }
+@if (User.Identity.IsAuthenticated)
+{
+
+    @using (Html.BeginForm("BlockorDelete", "Users", FormMethod.Post))
+    {
+        <button type="submit" name="ButtonType" class="button-css" value="Block selected">@localizer["Block selected"]</button>
+        <button type="submit" name="ButtonType"class="button-css" value="Unblock selected">@localizer["Unblock selected"]</button>
+        <button type="submit" name="ButtonType"class="button-css" value="Delete selected">@localizer["Delete selected"]</button>
+
+
+
+        <table class="table-css" style="margin-top:20px">
+
+            <tr>
+                <th class="th-css">
+                    <input type="checkbox" id="checkAll" name="checkAll" class="JchkAll" onclick="Selectall();" />
+                </th>
+                <th class="th-css">@localizer["Email"]</th>
+
+                <th class="th-css">@localizer["UserName"]</th>
+                <th class="th-css">@localizer["Status"]</th>
+                <th class="th-css"></th>
+            </tr>
+            @foreach (var user in Model)
+            {
+                <tr class="tr-css">
+
+                    <td class="td-css">
+                        <input type='checkbox' id="employeeIdsToDelete" name="employeeIdsToDelete" class="JchkGrid" value="@user.Id" />
+                    </td>
+                    <td class="td-css">@user.Email</td>
+                    <td class="td-css">@user.UserName</td>
+
+                    @if (user.LockoutEnabled)
+                    {
+                <td class="td-css">
+                    @localizer["Block"]
+                </td>
+
+                    }
+                    else
+                    {
+                <td class="td-css">@localizer["Activ"]</td>
+                    }
+
+                    <td class="td-css" align="right">
+
+                        <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-userid="@user.Id">@localizer["Access rights"]</a>
+                        <a class="btn btn-sm btn-primary" asp-controller="Collections" asp-action="MyColl" asp-route-Username=@user.UserName>@localizer["Collections"]</a>
+
+                    </td>
+                </tr>
+            }
+        </table>
+
+    }
+}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+
+    $('.JchkAll').click(function () {
+        $('.JchkGrid').prop('checked', this.checked)
+    });
+    $('.JchkGrid').click(function () {
+
+        if ($(".JchkGrid").length == $(".JchkGrid:checked").length) {
+            $('.JchkAll').prop('checked', 'checked')
+        }
+        else if (this.checked == false) {
+            $('.JchkAll').prop('checked', this.checked)
+        }
+    })
+
+
+</script>

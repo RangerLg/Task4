@@ -1,27 +1,51 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+@inject IHttpContextAccessor httpContextAccessor
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@using Microsoft.AspNetCore.Http;
+<html lang="ru">
 <head>
+
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport"  />
     <title>@ViewData["Title"] - Sat</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+        @{
+            var theme = httpContextAccessor.HttpContext.Request.Cookies["theme"] != null ? httpContextAccessor.HttpContext.Request.Cookies["theme"].ToString() : "Light";
+            if (theme == "Light")
+            {
+
+                <link href="~/css/site.css" rel="stylesheet" />
+            }
+            else
+            {
+
+                <link href="~/css/site-dark.css" rel="stylesheet" />
+            }
+        }
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.3.1/dt-1.10.25/b-1.7.1/fc-3.3.3/sc-2.0.4/sb-1.1.0/sp-1.3.0/sl-1.3.3/datatables.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
+
 <body>
+   
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm   border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-controller="Account" asp-action="Login">Task4</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Collections" asp-action="Index1">WebApplication1</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                      
+                
+                    <ul class="navbar-nav">
+                        <partial name="_layoutPartial" />                      
                     </ul>
-                    <partial name="_LoginPartial" />
-                </div>
+                    <ul class="navbar-nav ml-auto">
+                        <partial name="_CulturePartial" />
+                        <partial name="_LoginPartial" />
+                    </ul>
+
             </div>
         </nav>
     </header>
@@ -31,12 +55,14 @@
         </main>
     </div>
 
-    
+
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
+    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+

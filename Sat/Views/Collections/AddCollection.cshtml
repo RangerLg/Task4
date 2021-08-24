@@ -1,0 +1,61 @@
+﻿@model Task4Core.ViewModels.AddCollectionsViewModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+<style>
+    textarea {
+        resize: none;
+    }
+</style>
+<textarea hidden id="Fieldtype">@localizer["Field type"]</textarea>
+<textarea hidden id="Fieldname">@localizer["Field name"]</textarea>
+<div>
+    <button class="button-css" id="Add">@localizer["Click to add field"]</button> <button class="button-css" id="Remove">@localizer["Click to remove field"]</button>
+</div>
+<form style="margin-top:30px" method="post" asp-controller="Collections" asp-action="AddCollection">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="CollectionsName">@localizer["CollectionsName"]</label>
+        <input asp-for="CollectionsName" />
+        <span asp-validation-for="CollectionsName"></span>
+    </div>
+    <div>
+        <label asp-for="CollectionsTopic">@localizer["CollectionsTopic"]</label>
+        <select asp-for="CollectionsTopic">
+            <option value="Books">@localizer["Books"]</option>
+            <option value="Alcohol">@localizer["Alcohol"]</option>
+            <option value="Cars">@localizer["Cars"]</option>
+        </select>
+        <span asp-validation-for="CollectionsTopic"></span>
+    </div>
+
+    <div>
+        <label asp-for="Description">@localizer["Description"]</label>
+
+        <textarea rows="4" cols="40" asp-for="Description">
+        </textarea>
+        <span asp-validation-for="Description"></span>
+    </div>
+    <div id="textboxDiv"></div>
+    <div>
+        <input type="submit" value=@localizer["Add"] class="button-css" />
+    </div>
+</form>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    var count = 0;
+    $(document).ready(function () {
+        $("#Add").on("click", function () {
+            var Type = $("#Fieldtype").val();
+            var Name = $("#Fieldname").val();
+            if (count < 3) {
+                $("#textboxDiv").append("<div><label>" + Type + "</label><select name='list'>< option value = 'NULL' > NULL</option ><option value='Int'>Int</option><option value='String'>String</option><option value='Data'>Data</option><option value='Bool'>CheckBox</option></select ></div>");
+                $("#textboxDiv").append("<div><label>" + Name + "</label><input name='FieldName' type='text'/></div>");
+                count++;
+            }
+        });
+        $("#Remove").on("click", function () {
+            $("#textboxDiv").children().last().remove();
+            $("#textboxDiv").children().last().remove();
+            count--;
+        });
+    });
+</script>

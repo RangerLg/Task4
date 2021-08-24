@@ -4,6 +4,8 @@ namespace Sat.ViewModels
 {
     public class LoginViewModel
     {
+        internal object ExternalLogins;
+
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Task4Core.Models.Item>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+<table class="table-css">
+    <thead>
+        <tr class="tr-css">
+            <th class="th-css">
+                @localizer["Item name"]
+            </th>
+            <th class="th-css">
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr class="tr-css">
+                <td class="td-css">
+                    @item.NameItem
+                </td>
+                <td class="td-css" align="right">
+                    <form asp-controller="Collections" asp-action="ItemPage">
+                        <button type="submit" name="ItemId" class="btn btn-sm btn-dark " value=@item.IDItem>
+                            @localizer["More"]
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

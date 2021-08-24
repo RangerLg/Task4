@@ -1,0 +1,161 @@
+﻿@model Task4Core.Models.ItemAndCollection
+<h1>@Model.item.NameItem</h1>
+
+<input style="align-content:center" asp-for="item.FirstField_String" hidden class="TextJq" id="String1" />
+<input asp-for="item.SecondField_String" hidden class="TextJq" id="String2" />
+<input asp-for="item.ThirdField_String" hidden class="TextJq" id="String3" />
+
+@if (Model.collection.FirstField != null)
+{<div id="Field1">
+     <h3>
+         @Model.collection.FirstFieldName:
+
+
+         @switch (@Model.collection.FirstField)
+         {
+             case "Int":
+                 @Model.item.FirstField_Int
+                 break;
+
+             case "String":
+
+                 break;
+
+             case "Data":
+                 @Model.item.FirstField_Data
+                 break;
+
+             case "Bool":
+                 <input type="checkbox" disabled  checked=@Model.item.FirstField_Bool />
+                 break;
+         }
+     </h3>
+    </div>
+
+}
+<p></p>
+@if (@Model.collection.SecondFiled != null)
+{<div id="Field2">
+     <h3>
+         @Model.collection.SecondFieldName:
+
+
+         @switch (@Model.collection.SecondFiled)
+         {
+             case "Int":
+                 @Model.item.SecondField_Int
+                 break;
+
+             case "String":
+
+                 break;
+
+             case "Data":
+                 @Model.item.SecondField_Data
+                 break;
+
+             case "Bool":
+                 <input type="checkbox"  disabled  checked=@Model.item.SecondField_Bool />
+                 break;
+         }
+     </h3>
+    </div>
+}
+
+@if (@Model.collection.ThirdFiled != null)
+{<div id="Field3">
+        <h3>
+            @Model.collection.ThirdFieldName:
+
+
+            @switch (@Model.collection.ThirdFiled)
+            {
+                case "Int":
+                    @Model.item.ThirdField_Int
+                    break;
+
+                case "String":
+
+                    break;
+
+                case "Data":
+                    @Model.item.ThirdField_Data
+                    break;
+
+                case "Bool":
+                    <input type="checkbox"  disabled  checked=@Model.item.ThirdField_Bool />
+                    break;
+            }
+        </h3>
+    </div>
+}
+<h4>Likes: @Model.LikesCount</h4>
+@if (User.Identity.IsAuthenticated)
+{
+    @if (Model.item.Likes == null || !Model.item.Likes.Contains(User.Identity.Name))
+    {
+
+        <form asp-controller="Collections" asp-action="AddLike" method="post">
+            <button type="submit" class="btn-like" name="ItemId" value=@Model.item.IDItem>
+                Like
+            </button>
+        </form>
+    }
+    else
+    {
+        <form asp-controller="Collections" asp-action="ResetLike" method="post">
+            <button type="submit" class="btn-likeChange" name="ItemId" value=@Model.item.IDItem>Like</button>
+        </form>
+
+
+    }
+
+    <h5>Comments</h5>
+    <div id="Comment">
+
+    </div>
+    <style>
+        textarea {
+            resize: none;
+        }
+    </style>
+    <form asp-action="AddComment" asp-controller="Collections" asp-route-itemID=@Model.item.IDItem method="post">
+        <textarea rows="4" cols="40" name="Comm"></textarea>
+        <button type="submit" class="btn btn-sm btn-success">
+            Comment
+        </button>
+    </form>
+}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    setInterval(function () {
+        $.ajax({
+            url: 'All',
+            type: "Post",
+            data: { "Id": @Model.item.IDItem},
+            success: function (result) {
+                $("#Comment").html(result);
+
+            }
+        });
+    }, 4000);
+    $(document).ready(function ()
+    {
+         $.ajax({
+            url: 'All',
+            type: "Post",
+            data: { "Id": @Model.item.IDItem},
+            success: function (result) {
+                $("#Comment").html(result);
+
+            }
+        });
+    });
+
+    $(window).on('load', function () {
+        $("#Field1").append($("#String1").val());
+        $("#Field2").append($("#String2").val());
+        $("#Field3").append($("#String3").val());
+    });
+
+</script>

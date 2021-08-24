@@ -8,11 +8,6 @@ namespace Sat.Models
 {
     public class User:IdentityUser
     {
-       
-        public string Name { get; set; }
 
-        public DateTime DataReg { get; set; }
-
-        public DateTime DataLog { get; set; }
     }
 }
