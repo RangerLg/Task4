@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Sat.ViewModels;
-using Sat.Models;
+using Task4Core.ViewModels;
+using Task4Core.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Security.Claims;

@@ -3,14 +3,14 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Logging;
-using Sat.Models;
+using Task4Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Sat.Controllers
+namespace Task4Core.Controllers
 {
     public class HomeController : Controller
     {

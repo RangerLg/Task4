@@ -7,8 +7,13 @@
 </style>
 <textarea hidden id="Fieldtype">@localizer["Field type"]</textarea>
 <textarea hidden id="Fieldname">@localizer["Field name"]</textarea>
+<textarea hidden id="FieldList">@localizer["Elements of list"]</textarea>
+
 <div>
-    <button class="button-css" id="Add">@localizer["Click to add field"]</button> <button class="button-css" id="Remove">@localizer["Click to remove field"]</button>
+    <button class="button-css" id="Add">@localizer["Click to add field"]</button>
+    <button class="button-css" id="Remove">@localizer["Click to remove field"]</button>
+    <button class="button-css" id="AddList">@localizer["Click to add List field"]</button>
+    <button class="button-css" id="RemoveList">@localizer["Click to add List field"]</button>
 </div>
 <form style="margin-top:30px" method="post" asp-controller="Collections" asp-action="AddCollection">
     <div asp-validation-summary="ModelOnly"></div>
@@ -34,20 +39,27 @@
         </textarea>
         <span asp-validation-for="Description"></span>
     </div>
+
     <div id="textboxDiv"></div>
+    <div id="textboxDivList"></div>
     <div>
         <input type="submit" value=@localizer["Add"] class="button-css" />
     </div>
 </form>
+
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script>
     var count = 0;
+    var visibale = false;
+    var tempcountFields = 0;
     $(document).ready(function () {
+        var Type = $("#Fieldtype").val();
+        var Name = $("#Fieldname").val();
+        var List = $("#FieldList").val();
         $("#Add").on("click", function () {
-            var Type = $("#Fieldtype").val();
-            var Name = $("#Fieldname").val();
+          
             if (count < 3) {
-                $("#textboxDiv").append("<div><label>" + Type + "</label><select name='list'>< option value = 'NULL' > NULL</option ><option value='Int'>Int</option><option value='String'>String</option><option value='Data'>Data</option><option value='Bool'>CheckBox</option></select ></div>");
+                $("#textboxDiv").append("<div><label>" + Type + "</label><select id='list' name='list'><option value = 'NULL' > NULL</option ><option value='Int'>Int</option><option value='String'>String</option><option value='Data'>Data</option><option value='Bool'>CheckBox</option></select ></div>");
                 $("#textboxDiv").append("<div><label>" + Name + "</label><input name='FieldName' type='text'/></div>");
                 count++;
             }
@@ -57,5 +69,24 @@
             $("#textboxDiv").children().last().remove();
             count--;
         });
+
+        $("#AddList").on("click", function () {
+           
+            if (count < 3) {
+                $("#textboxDivList").append("<div><label>" + Type + "</label><select name='list'><option selected value='List'>List</option></select ></div>");
+                $("#textboxDivList").append("<div><label>" + Name + "</label><input name='FieldName' type='text'/></div>");
+                $("#textboxDivList").append("<div><label>" + List + "</label><input  name='FieldListName' type='text'/></div>");
+                count++;
+            }
+        });
+
+        $("#RemoveList").on("click", function () {
+            $("#textboxDivList").children().last().remove();
+            $("#textboxDivList").children().last().remove();
+            $("#textboxDivList").children().last().remove();
+            count--;
+        });
+
+
     });
 </script>

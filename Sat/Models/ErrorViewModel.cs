@@ -1,6 +1,6 @@
 using System;
 
-namespace Sat.Models
+namespace Task4Core.Models
 {
     public class ErrorViewModel
     {

@@ -10,10 +10,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["Sat/Task4Core.csproj", "Sat/"]
-RUN dotnet restore "Sat/Task4Core.csproj"
+COPY ["Task4Core/Task4Core.csproj", "Task4Core/"]
+RUN dotnet restore "Task4Core/Task4Core.csproj"
 COPY . .
-WORKDIR "/src/Sat"
+WORKDIR "/src/Task4Core"
 RUN dotnet build "Task4Core.csproj" -c Release -o /app/build
 
 FROM build AS publish

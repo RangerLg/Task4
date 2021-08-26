@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Sat": {
+    "Task4Core": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

@@ -132,8 +132,14 @@
   <data name="Click to add field" xml:space="preserve">
     <value>Click to add field</value>
   </data>
+  <data name="Click to add List field" xml:space="preserve">
+    <value>Click to add list field</value>
+  </data>
   <data name="Click to remove field" xml:space="preserve">
     <value>Click to remove field</value>
+  </data>
+  <data name="Click to remove List field" xml:space="preserve">
+    <value>Click to remove list field</value>
   </data>
   <data name="CollectionsName" xml:space="preserve">
     <value>Collections name</value>
@@ -143,6 +149,9 @@
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
+  </data>
+  <data name="Elements of list" xml:space="preserve">
+    <value>Elements of list</value>
   </data>
   <data name="Field name" xml:space="preserve">
     <value>Field name</value>

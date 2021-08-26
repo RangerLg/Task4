@@ -19,6 +19,10 @@ namespace Task4Core.ViewModels
         public string SecondField { get; set; }
         public string ThirdField { get; set; }
 
+        public string FirstList { get; set; }
+        public string SecondList { get; set; }
+        public string ThirdList { get; set; }
+
 
         [Required]
         [Display(Name = "Topic")]

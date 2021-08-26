@@ -7,36 +7,79 @@
     <div>
         <input type="hidden" asp-for="Id" />
     </div>
-   
+
     <div>
         <label asp-for="CollectionsName">@localizer["CollectionsName"]</label>
         <input asp-for="CollectionsName" />
         <span asp-validation-for="CollectionsName"></span>
     </div>
-    
-    @if (Model.FirstField != null) { 
-    <div>
-        <label asp-for="FirstFieldName">@localizer["FirstFieldName"]</label>
-        <input asp-for="FirstFieldName" />
-        <span asp-validation-for="FirstFieldName"></span>
-    </div>
+
+    @if (Model.FirstField != null)
+    {
+        if (Model.FirstField != "List")
+        {
+            <div>
+                <label asp-for="FirstFieldName">@localizer["FirstFieldName"]</label>
+                <input asp-for="FirstFieldName" />
+                <span asp-validation-for="FirstFieldName"></span>
+            </div>
+        }
+        else
+        {
+            <div>
+                <label asp-for="FirstFieldName">@localizer["FirstFieldName"]</label>
+                <input asp-for="FirstFieldName" />
+                <span asp-validation-for="FirstFieldName"></span><br />
+                <label asp-for="FirstList">@localizer["List Items"]</label>
+                <input asp-for="FirstList" />
+                <span asp-validation-for="FirstList"></span>
+            </div>
+        }
     }
-     @if (Model.SecondField != null)
-     {
-    <div>
-        <label asp-for="SecondFieldName">@localizer["SecondFieldName"]</label>
-        <input asp-for="SecondFieldName" />
-        <span asp-validation-for="SecondFieldName"></span>
-    </div>
-     }
-     @if (Model.ThirdField != null)
-     {
-    <div>
-        <label asp-for="ThirdFieldName">@localizer["ThirdFieldName"]</label>
-        <input asp-for="ThirdFieldName" />
-        <span asp-validation-for="ThirdFieldName"></span>
-    </div>
-     }
+    @if (Model.SecondField != null)
+    {
+        if (Model.SecondField != "List")
+        {
+            <div>
+                <label asp-for="SecondFieldName">@localizer["SecondFieldName"]</label>
+                <input asp-for="SecondFieldName" />
+                <span asp-validation-for="SecondFieldName"></span>
+            </div>
+        }
+        else
+        {
+            <div>
+                <label asp-for="SecondFieldName">@localizer["SecondFieldName"]</label>
+                <input asp-for="SecondFieldName" />
+                <span asp-validation-for="SecondFieldName"></span><br />
+                <label asp-for="SecondList">@localizer["List Items"]</label>
+                <input asp-for="SecondList" />
+                <span asp-validation-for="SecondList"></span>
+            </div>
+        }
+    }
+    @if (Model.ThirdField != null)
+    {
+        if (Model.FirstField != "List")
+        {
+            <div>
+                <label asp-for="ThirdFieldName">@localizer["ThirdFieldName"]</label>
+                <input asp-for="ThirdFieldName" />
+                <span asp-validation-for="ThirdFieldName"></span>
+            </div>
+        }
+        else
+        {
+            <div>
+                <label asp-for="ThirdFieldName">@localizer["ThirdFieldName"]</label>
+                <input asp-for="ThirdFieldName" />
+                <span asp-validation-for="ThirdFieldName"></span><br />
+                <label asp-for="ThirdList">@localizer["List Items"]</label>
+                <input asp-for="ThirdList" />
+                <span asp-validation-for="ThirdList"></span>
+            </div>
+        }
+    }
     <div>
         <label asp-for="CollectionsTopic">@localizer["CollectionsTopic"]</label>
         <select asp-for="CollectionsTopic">

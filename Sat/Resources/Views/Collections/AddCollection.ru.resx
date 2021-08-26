@@ -130,10 +130,16 @@
     <value>Машины</value>
   </data>
   <data name="Click to add field" xml:space="preserve">
-    <value>Нажмите чтобы добавить поле</value>
+    <value>Добавить поле</value>
+  </data>
+  <data name="Click to add List field" xml:space="preserve">
+    <value>Добавить поле типа список</value>
   </data>
   <data name="Click to remove field" xml:space="preserve">
-    <value>Нажмите чтобы удалить поле</value>
+    <value>Удалить поле</value>
+  </data>
+  <data name="Click to remove List field" xml:space="preserve">
+    <value>Удалить поле типа список</value>
   </data>
   <data name="CollectionsName" xml:space="preserve">
     <value>Имя коллекции</value>
@@ -143,6 +149,9 @@
   </data>
   <data name="Description" xml:space="preserve">
     <value>Описание</value>
+  </data>
+  <data name="Elements of list" xml:space="preserve">
+    <value>Элементы списка</value>
   </data>
   <data name="Field name" xml:space="preserve">
     <value>Имя поля</value>

@@ -26,6 +26,10 @@ namespace Task4Core.Models
         public string ThirdFieldName { get; set; }
         public int LikeCount { get; set; }
 
+        public string FirsList { get; set; }
+        public string SecondList { get; set; }
+        public string ThirdList { get; set; }
+
         public int ItemCount { get; set; }
 
     }

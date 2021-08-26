@@ -24,5 +24,6 @@ namespace Task4Core.ViewModels
 
         public string UserName { get; set; }
        
+
     }
 }

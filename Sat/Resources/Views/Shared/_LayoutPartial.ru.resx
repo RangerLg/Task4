@@ -120,12 +120,6 @@
   <data name="Collections" xml:space="preserve">
     <value>Коллекции</value>
   </data>
-  <data name="Dark" xml:space="preserve">
-    <value>Тёмная</value>
-  </data>
-  <data name="Light" xml:space="preserve">
-    <value>Светлая</value>
-  </data>
   <data name="My collections" xml:space="preserve">
     <value>Мои коллекции</value>
   </data>

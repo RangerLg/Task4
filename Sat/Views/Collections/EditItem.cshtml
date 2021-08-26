@@ -1,6 +1,11 @@
 ﻿@model Task4Core.ViewModels.EditItemViewModel
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@{
 
+    var FirsListItems = Model.FirstList == null ? null : Model.FirstList.Select(x => new SelectListItem { Value = x, Text = x }).ToList();
+    var SecondListItems = Model.SecondList == null ? null : Model.SecondList.Select(x => new SelectListItem { Value = x, Text = x }).ToList();
+    var ThirdListItems = Model.ThirdList == null ? null : Model.ThirdList.Select(x => new SelectListItem { Value = x, Text = x }).ToList();
+}
 
 <form method="post" asp-controller="Collections" asp-action="EditItem">
     <div>
@@ -29,6 +34,10 @@
             case "Data":
                 <input type="date" asp-for="FirstFiled_Data" />
                 <span asp-validation-for="FirstFiled_Data"></span>
+                break;
+            case "List":
+                <select asp-for=FirstFiled_String asp-items=FirsListItems></select>
+                <span asp-validation-for="FirstList"></span>
                 break;
             case "Bool":
                 <input type="checkbox" asp-for="FirstFiled_Bool" />

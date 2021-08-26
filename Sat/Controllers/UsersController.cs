@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
-using Sat.Models;
+using Task4Core.Models;
 using System.Collections.Generic;
-using Sat.ViewModels;
+using Task4Core.ViewModels;
 using System;
 
 namespace Task4Core.Controllers

@@ -1,5 +1,11 @@
 ﻿@model Task4Core.ViewModels.AddItemViewModel
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@{
+
+    var FirsListItems =Model.FirstList==null?null: Model.FirstList.Select(x => new SelectListItem { Value = x, Text = x }).ToList();
+    var SecondListItems = Model.SecondList == null ? null : Model.SecondList.Select(x => new SelectListItem { Value = x, Text = x }).ToList();
+    var ThirdListItems = Model.ThirdList == null ? null : Model.ThirdList.Select(x => new SelectListItem { Value = x, Text = x }).ToList();
+}
 <textarea hidden id="Tag">@localizer["Tag"]</textarea>
 <h3 style="margin-bottom:10px">@localizer["AddNewItem"]</h3>
 <div>
@@ -35,6 +41,10 @@
             case "Bool":
                 <input type="checkbox" asp-for="FirstFiled_Bool" />
                 <span asp-validation-for="FirstFiled_Data"></span>
+                break;
+            case "List":
+                <select asp-for=FirstFiled_String asp-items=FirsListItems></select>
+                <span asp-validation-for="FirstList"></span>
                 break;
         }
     }
@@ -75,6 +85,10 @@
                 <input type="checkbox" asp-for="SecondFiled_Bool" />
                 <span asp-validation-for="SecondFiled_Bool"></span>
                 break;
+            case "List":
+                <select asp-for=SecondFiled_String asp-items=SecondListItems></select>
+                <span asp-validation-for="SecondList"></span>
+                break;
         }
     }
     <br />
@@ -106,6 +120,10 @@
             case "Bool":
                 <input type="checkbox" asp-for="ThirdFiled_Bool" />
                 <span asp-validation-for="ThirdFiled_Bool"></span>
+                break;
+            case "List":
+                <select asp-for=ThirdFiled_String asp-items=ThirdListItems></select>
+                <span asp-validation-for="ThirdList"></span>
                 break;
         }
     }
