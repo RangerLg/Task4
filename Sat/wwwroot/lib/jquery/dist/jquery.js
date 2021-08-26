@@ -4698,7 +4698,7 @@ var documentElement = document.documentElement;
 
 
 
-	var isAttached = function( elem ) {
+	var iTask4Coretached = function( elem ) {
 			return jQuery.contains( elem.ownerDocument, elem );
 		},
 		composed = { composed: true };
@@ -4709,7 +4709,7 @@ var documentElement = document.documentElement;
 	// Early iOS 10 versions support `attachShadow` but not `getRootNode`,
 	// leading to errors. We need to check for `getRootNode`.
 	if ( documentElement.getRootNode ) {
-		isAttached = function( elem ) {
+		iTask4Coretached = function( elem ) {
 			return jQuery.contains( elem.ownerDocument, elem ) ||
 				elem.getRootNode( composed ) === elem.ownerDocument;
 		};
@@ -4728,7 +4728,7 @@ var isHiddenWithinTree = function( elem, el ) {
 			// Support: Firefox <=43 - 45
 			// Disconnected elements can have computed display: none, so first confirm that elem is
 			// in the document.
-			isAttached( elem ) &&
+			iTask4Coretached( elem ) &&
 
 			jQuery.css( elem, "display" ) === "none";
 	};
@@ -5064,7 +5064,7 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 			continue;
 		}
 
-		attached = isAttached( elem );
+		attached = iTask4Coretached( elem );
 
 		// Append to fragment
 		tmp = getAll( fragment.appendChild( elem ), "script" );
@@ -6147,7 +6147,7 @@ function remove( elem, selector, keepData ) {
 		}
 
 		if ( node.parentNode ) {
-			if ( keepData && isAttached( node ) ) {
+			if ( keepData && iTask4Coretached( node ) ) {
 				setGlobalEval( getAll( node, "script" ) );
 			}
 			node.parentNode.removeChild( node );
@@ -6165,7 +6165,7 @@ jQuery.extend( {
 	clone: function( elem, dataAndEvents, deepDataAndEvents ) {
 		var i, l, srcElements, destElements,
 			clone = elem.cloneNode( true ),
-			inPage = isAttached( elem );
+			inPage = iTask4Coretached( elem );
 
 		// Fix IE cloning issues
 		if ( !support.noCloneChecked && ( elem.nodeType === 1 || elem.nodeType === 11 ) &&
@@ -6585,7 +6585,7 @@ function curCSS( elem, name, computed ) {
 	if ( computed ) {
 		ret = computed.getPropertyValue( name ) || computed[ name ];
 
-		if ( ret === "" && !isAttached( elem ) ) {
+		if ( ret === "" && !iTask4Coretached( elem ) ) {
 			ret = jQuery.style( elem, name );
 		}
 

@@ -1,4 +1,4 @@
-﻿@model Task4Core.Models.ItemAndCollection
+﻿@model Task4Core.ViewModels.ItemAndCollection
 <h1>@Model.item.NameItem</h1>
 
 <input style="align-content:center" asp-for="item.FirstField_String" hidden class="TextJq" id="String1" />
@@ -20,6 +20,7 @@
              case "String":
 
                  break;
+
 
              case "Data":
                  @Model.item.FirstField_Data

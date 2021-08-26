@@ -35,6 +35,10 @@ namespace Task4Core.ViewModels
         public bool SecondFiled_Bool { get; set; }
         public bool ThirdFiled_Bool { get; set; }
 
+        public List<string> FirstList { get; set; }
+        public List<string> SecondList { get; set; }
+        public List<string> ThirdList { get; set; }
+
         public string Tags { get; set; }
     }
 }

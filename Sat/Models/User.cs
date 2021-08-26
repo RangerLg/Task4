@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace Sat.Models
+namespace Task4Core.Models
 {
     public class User:IdentityUser
     {

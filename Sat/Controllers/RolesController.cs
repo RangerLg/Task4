@@ -3,8 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Sat.Models;
-using Sat.ViewModels;
+using Task4Core.Models;
+using Task4Core.ViewModels;
 
 namespace Task4Core.Controllers
 {

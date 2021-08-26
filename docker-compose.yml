@@ -5,4 +5,4 @@ services:
     image: ${DOCKER_REGISTRY-}task4core
     build:
       context: .
-      dockerfile: Sat\Dockerfile
+      dockerfile: Task4Core\Dockerfile

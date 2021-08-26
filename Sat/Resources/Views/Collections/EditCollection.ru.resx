@@ -141,6 +141,9 @@
   <data name="FirstFieldName" xml:space="preserve">
     <value>Имя первого поля</value>
   </data>
+  <data name="List Items" xml:space="preserve">
+    <value>Элементы списка</value>
+  </data>
   <data name="SecondFieldName" xml:space="preserve">
     <value>Имя второго поля</value>
   </data>

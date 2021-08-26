@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Task4Core.Models;
 
-namespace Sat.Models
+namespace Task4Core.Models
 {
     public class AppDbContext : DbContext
     {

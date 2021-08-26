@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Task4Core.Models;
 
-namespace Sat.Models
+namespace Task4Core.Models
 {
     public class ApplicationContext:IdentityDbContext<User>
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Sat.ViewModels
+namespace Task4Core.ViewModels
 {
     public class RegisterViewModel
     {

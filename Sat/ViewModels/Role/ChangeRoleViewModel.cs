@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Sat.ViewModels
+namespace Task4Core.ViewModels
 {
     public class ChangeRoleViewModel
     {

@@ -1,4 +1,4 @@
-using Sat.Models;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Localization;
+using Task4Core.Models;
 
 namespace CustomIdentityApp
 {
@@ -92,7 +93,7 @@ namespace CustomIdentityApp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Collections}/{action=Index}/{id?}");
             });
         }
     }

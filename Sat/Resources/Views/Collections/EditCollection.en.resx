@@ -141,6 +141,9 @@
   <data name="FirstFieldName" xml:space="preserve">
     <value>First field name</value>
   </data>
+  <data name="List Items" xml:space="preserve">
+    <value>Elements of lists </value>
+  </data>
   <data name="SecondFieldName" xml:space="preserve">
     <value>Second field name</value>
   </data>
