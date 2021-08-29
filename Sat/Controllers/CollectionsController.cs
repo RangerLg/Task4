@@ -8,6 +8,9 @@ using System.Data.Entity;
 using System.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
+using System.Data;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Task4Core.Controllers
 {
@@ -28,6 +31,7 @@ namespace Task4Core.Controllers
 
         public IActionResult Index(string Topic,string sortOrder,string searchString)
         {
+
             FetchData(Topic);
             ViewBag.NameSortParm = sortOrder=="Name" ? "name_desc" : "Name";           
             ViewBag.LikeSortParm = sortOrder == "Like" ? "like_desc" : "Like";
@@ -35,8 +39,9 @@ namespace Task4Core.Controllers
             ViewData["CurrentFilter"] = searchString;
             SortCollections(sortOrder);
             collections = searchString==null?collections: SearchCollection(searchString);
-           
+
             return View(collections.ToList());
+
         }
 
         
@@ -527,6 +532,35 @@ namespace Task4Core.Controllers
             var tags = (from Tags in this._appDBContext.Tags                           
                              select Tags.Tag).ToList();
             return tags;
+        }
+
+        public IActionResult ExportToCsV(int id)
+        {
+            StringBuilder sb = new StringBuilder();
+            
+            List<string> CollumName= GetCollumName();
+            sb.AppendLine(string.Join(",", CollumName));
+
+            foreach(var item in _appDBContext.Items.Where(s=>s.IdCollection==id).ToList())
+            {
+                sb.AppendLine($"{item.IDItem},{item.IdCollection},{item.NameItem},{item.FirstField_Int}," +
+                    $"{(String.Empty + item.FirstField_String).Replace("\r\n","")},{item.FirstField_Data},{item.FirstField_Bool},{item.SecondField_Int}," +
+                    $"{(String.Empty+ item.SecondField_String).Replace("\r\n", "")},{item.SecondField_Data},{item.SecondField_Bool},{item.ThirdField_Int}," +
+                    $"{(String.Empty + item.ThirdField_String).Replace("\r\n", "")},{item.ThirdField_Data},{item.ThirdField_Bool},{(String.Empty+item.Likes).Replace(",","/")},{item.Tags},{item.LikesCount},{item.CommentsCount}");
+            }
+            return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "Items.csv");
+        }
+
+        public List<string> GetCollumName()
+        {
+            
+            List<string> collumName=new List<string>() { "IDItem", "IdCollection", "NameItem",
+                "FirstField_Int", "FirstField_String", "FirstField_Data", "FirstField_Bool",
+                "SecondField_Int", "SecondField_String","SecondField_Data", "SecondField_Bool",
+                "ThirdField_Int", "ThirdField_String", "ThirdField_Data", "ThirdField_Bool",
+                "Likes", "Tags", "LikesCount", "CommentsCount" };
+           
+            return collumName;
         }
     }
 }

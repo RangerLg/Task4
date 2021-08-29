@@ -132,6 +132,9 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export in CSV</value>
+  </data>
   <data name="Find by name" xml:space="preserve">
     <value>Find...</value>
   </data>

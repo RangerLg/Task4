@@ -9,13 +9,16 @@
 
 <div class="row" style="margin-top:20px">
 
-    <div class="col-6">
+    <div class="col-6 " style="align-content:flex-start">
         @if (User.Identity.Name == Model.collections.UserName || User.IsInRole("Admin"))
         {
             <form asp-controller="Collections" asp-action="AddItem" asp-route-CollectionId=@Model.collections.ID asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <button type="submit" name="CollectionId" value=@Model.collections.ID class="btn-add">@localizer["Add new item"]</button>
             </form>
         }
+        <form asp-controller="Collections" asp-action="ExportToCsV" asp-route-Id=@Model.collections.ID >
+            <button type="submit" name="CollectionId" value=@Model.collections.ID class="btn-add"style="margin-left:10px">@localizer["Export"]</button>
+        </form>
     </div>
     <div class="col-6">
         <form class="example" asp-action="CollectionPage" asp-route-CollectionId=@Model.collections.ID method="post">
