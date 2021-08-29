@@ -6,7 +6,7 @@
     var SecondListItems = Model.SecondList == null ? null : Model.SecondList.Select(x => new SelectListItem { Value = x, Text = x }).ToList();
     var ThirdListItems = Model.ThirdList == null ? null : Model.ThirdList.Select(x => new SelectListItem { Value = x, Text = x }).ToList();
 }
-
+<textarea hidden id="Tag">@localizer["Tag"]</textarea>
 <form method="post" asp-controller="Collections" asp-action="EditItem">
     <div>
         <input type="hidden" asp-for="Id" />
@@ -116,7 +116,7 @@
     <br />
     <div>
         <label asp-for="Tags">@localizer["Tags"]</label>
-        <input type="text" asp-for="Tags" />
+        <input type="text" id="Tags" asp-for="Tags" />
         <span asp-validation-for="Tags"></span>
     </div>
 
@@ -127,3 +127,36 @@
 
 
 
+@section Scripts
+    {
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        var count = 0;
+        $(document).ready(function () {
+            var Tag = $("#Tag").val();          
+                $.ajax({
+                    url: '/Collections/AutoComplete',
+                    type: "POST",
+                    success: function (result) {
+                        console.log(result);
+                        tags = result;
+                        $("#Tags").autocomplete({
+                            source: function (request, response) {
+                                var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
+                                response($.grep(tags, function (item) {
+                                    return matcher.test(item);
+                                }));
+                            },
+                            minLength: 1
+                        });
+
+                    }
+                })
+
+            });
+    </script>
+}
