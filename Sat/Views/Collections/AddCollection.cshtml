@@ -15,7 +15,7 @@
     <button class="button-css" id="AddList">@localizer["Click to add List field"]</button>
     <button class="button-css" id="RemoveList">@localizer["Click to add List field"]</button>
 </div>
-<form style="margin-top:30px" method="post" asp-controller="Collections" asp-action="AddCollection">
+<form style="margin-top:30px" method="post" asp-controller="Collections" asp-action="AddCollection" asp-route-Username=@Model.UserName>
     <div asp-validation-summary="ModelOnly"></div>
     <div>
         <label asp-for="CollectionsName">@localizer["CollectionsName"]</label>
