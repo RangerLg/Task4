@@ -83,11 +83,7 @@ namespace CustomIdentityApp
 
 
 
-            //var supportCultres = new[] { "en", "ru" };
-
-            //var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportCultres[0]).AddSupportedCultures(supportCultres).AddSupportedUICultures(supportCultres);
-
-            //app.UseRequestLocalization(localizationOptions);    
+ 
             app.UseRequestLocalization(app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
             app.UseEndpoints(endpoints =>
             {
