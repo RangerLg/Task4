@@ -28,7 +28,7 @@ a, .btn-link {
     width: auto
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link .nav-item {
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link .nav-item .navbar-toggler-icon {
     color: var(--font-color);
     background-color: var(--background);
     border-color: var(--highlight);

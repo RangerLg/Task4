@@ -22,7 +22,7 @@
                 <link href="~/css/site-dark.css" rel="stylesheet" />
             }
         }
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.3.1/dt-1.10.25/b-1.7.1/fc-3.3.3/sc-2.0.4/sb-1.1.0/sp-1.3.0/sl-1.3.3/datatables.min.css" />
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -30,22 +30,21 @@
 <body>
    
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm   border-bottom box-shadow mb-3">
+        <nav class="navbar  navbar-expand-lg navbar-light  border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Collections" asp-action="ExportToCSV">WebApplication1</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <button  class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                     <span class=" navbar-toggler-icon " style="background-color:white;colo"></span>
                 </button>
-                
+                <div class="navbar-collapse collapse">
                     <ul class="navbar-nav">
-                        <partial name="_layoutPartial" />                      
+                        <partial name="_layoutPartial" />
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         <partial name="_CulturePartial" />
                         <partial name="_LoginPartial" />
                     </ul>
-
+                </div>
             </div>
         </nav>
     </header>
@@ -60,7 +59,6 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     
     @await RenderSectionAsync("Scripts", required: false)
 </body>
