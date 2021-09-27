@@ -1,23 +1,23 @@
 ﻿@model IEnumerable<Task4Core.Models.Collection>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer _localizer
 
 <form class="example" asp-action="Index" method="post">
     <div class="row">
         <div class="col-6">
             <select name="Topic" class="select-css" style="float:left" ;>
-                <option selected disabled>@localizer["Choose a topic"]</option>
-                <option value="">@localizer["All"]</option>
-                <option value="Books">@localizer["Books"]</option>
-                <option value="Alcohol">@localizer["Alcohol"]</option>
-                <option value="Cars">@localizer["Cars"]</option>
+                <option selected disabled>@_localizer["Choose a topic"]</option>
+                <option value="">@_localizer["All"]</option>
+                <option value="Books">@_localizer["Books"]</option>
+                <option value="Alcohol">@_localizer["Alcohol"]</option>
+                <option value="Cars">@_localizer["Cars"]</option>
             </select>
         </div>
         <div class="col-6">
             <div class="form-action no-color">
                 <p>
                     <button type="submit" a><i class="fa fa-search"></i></button>
-                    <input class="input-css" type="text" placeholder=@localizer["Find by name"]  name="searchString" value=@ViewData["CurrentFilter"] />
+                    <input class="input-css" type="text" placeholder=@_localizer["Find by name"]  name="searchString" value=@ViewData["CurrentFilter"] />
                 </p>
             </div>
         </div>
@@ -28,15 +28,15 @@
     <thead>
         <tr>
             <th class="th-css">
-                <a asp-controller="Collections" asp-action="Index" asp-route-sortOrder=@ViewBag.NameSortParm asp-route-searchString=@ViewData["CurrentFilter"]>@localizer["CollectionName"]</a>
+                <a asp-controller="Collections" asp-action="Index" asp-route-sortOrder=@ViewBag.NameSortParm asp-route-searchString=@ViewData["CurrentFilter"]>@_localizer["CollectionName"]</a>
             </th>
 
             <th class="th-css">
-                <a asp-controller="Collections" asp-action="Index" asp-route-sortOrder=@ViewBag.ItemSortParm asp-route-searchString=@ViewData["CurrentFilter"]>@localizer["ItemCount"]</a>
+                <a asp-controller="Collections" asp-action="Index" asp-route-sortOrder=@ViewBag.ItemSortParm asp-route-searchString=@ViewData["CurrentFilter"]>@_localizer["ItemCount"]</a>
             </th>
 
             <th class="th-css">
-                <a asp-controller="Collections" asp-action="Index" asp-route-sortOrder=@ViewBag.LikeSortParm asp-route-searchString=@ViewData["CurrentFilter"]>@localizer["LikeCount"]</a>
+                <a asp-controller="Collections" asp-action="Index" asp-route-sortOrder=@ViewBag.LikeSortParm asp-route-searchString=@ViewData["CurrentFilter"]>@_localizer["LikeCount"]</a>
             </th>
             <th class="th-css">
 
@@ -58,10 +58,10 @@
                     @item.LikeCount
                 </td>
 
-                <td class="td-css" align="right" width=10%>
+                <td class="td-css" style="align-content: end; width: 10%" >
                     <form asp-controller="Collections" asp-action="CollectionPage" asp-route-CollectionId=@item.ID>
                         <button type="submit" name="CollectionId"  class="btn-more" value=@item.ID>
-                            @localizer["More"]
+                            @_localizer["More"]
                         </button>
                     </form>
                 </td>

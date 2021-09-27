@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Task4Core.ViewModels;
 using Task4Core.Models;
 using Microsoft.AspNetCore.Identity;
-using System;
 using System.Security.Claims;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Localization;
@@ -40,7 +39,7 @@ namespace Task4Core.Controllers
               
                 if (result.Succeeded)
                 {
-                    var userToId = await _userManager.FindByEmailAsync(model.Email);
+                    await _userManager.FindByEmailAsync(model.Email);
                     //await _userManager.AddToRoleAsync(userToId, "User");
                     // установка куки
                     await _signInManager.SignInAsync(user, false);
@@ -49,12 +48,10 @@ namespace Task4Core.Controllers
                     _ = _userManager.UpdateAsync(res);
                     return RedirectToAction("Index", "Collections");
                 }
-                else
+
+                foreach (var error in result.Errors)
                 {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
+                    ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
             return View(model);
@@ -100,18 +97,13 @@ namespace Task4Core.Controllers
 
                     }
                 }
-                else
+
                 {
                     var res = await _userManager.FindByEmailAsync(model.Email);
-                    var test = _localizer["You are blocked"];
-                    if (res != null &&res.LockoutEnabled == true)
-                    {
-                        ModelState.AddModelError("", _localizer.GetString("You are blocked"));
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", _localizer.GetString("Incorrect username and (or) password"));
-                    }
+                    ModelState.AddModelError("",
+                        res is {LockoutEnabled: true}
+                            ? _localizer.GetString("You are blocked")
+                            : _localizer.GetString("Incorrect username and (or) password"));
                 }
             }
             return View(model);

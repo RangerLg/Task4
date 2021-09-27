@@ -47,7 +47,7 @@ namespace Task4Core.Controllers
             IdentityRole role = await _roleManager.FindByIdAsync(id);
             if (role != null)
             {
-                IdentityResult result = await _roleManager.DeleteAsync(role);
+                await _roleManager.DeleteAsync(role);
             }
             return RedirectToAction("Index");
         }
@@ -79,14 +79,13 @@ namespace Task4Core.Controllers
         public async Task<IActionResult> Edit(string userId, List<string> roles)
         {
             // получаем пользователя
-            User user = await _userManager.FindByIdAsync(userId);
+            User user;
             user = await _userManager.FindByIdAsync(userId);
             if (user != null)
             {
                 // получем список ролей пользователя
                 var userRoles = await _userManager.GetRolesAsync(user);
                 // получаем все роли
-                var allRoles = _roleManager.Roles.ToList();
                 // получаем список ролей, которые были добавлены
                 var addedRoles = roles.Except(userRoles);
                 // получаем роли, которые были удалены
